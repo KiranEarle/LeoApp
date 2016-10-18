@@ -1,0 +1,14 @@
+<% include templates\_header.ejs %>
+<div class="container">
+<form action="/login" method="POST">
+	<p>
+	<input name="username" type="text" placeholder="Username"  autofocus><br>
+	<input name="password" type="text" placeholder="Password"  autofocus><br>
+	<input type="submit" value="Login">
+	</p>
+</form>
+<p>
+	<a href="signup">Sign up</a>
+</p>
+</div>
+<% include templates\_footer.ejs %>
