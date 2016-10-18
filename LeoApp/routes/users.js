@@ -31,30 +31,37 @@ router.post('/signup', function(req, res, next){
 	
 
 	if(errors){
-		 res.render('signup',{
-		 	title:'Sign Up',
+		res.render('signup',{
+			title:'Sign Up',
 			errors:errors
 		});
 		
 	} else {
-
-	var newUser = new User({
-		username: username,
-		name: name,
-		email: email,
-		password: password
-	});
-	}
-	User.createUser(newUser, function(err,user){
-		if(err){ throw err;}
-		console.log(user);
-	});
 	
-	req.flash('info', 'You have signed up successfully');
-	res.redirect('/login',{
-		title:'Login'
-	});
+		var newUser = new User({
+			username: username,
+			name: name,
+			email: email,
+			password: password
+		});
+	
+		User.findOne({username: newUser.username}, function(err, user){
+			if(err){ return next(err)}
+				if(user){
+					req.flash('info','This username already exists');
+					return res.redirect("/signup");
+				}else{
+					
+					User.createUser(newUser, function(err,user){
+						if(err){ throw err;}
+						console.log(user);
+					});
 
+					req.flash('info', 'You have signed up successfully');
+					return res.redirect('/login');
+				}
+			});
+	}	
 
 });
 
@@ -63,6 +70,7 @@ router.get('/login', function(req, res, next){
 		title:'Log in'
 	})
 });
+
 
 router.post('/login', function(req, res, next){
 
