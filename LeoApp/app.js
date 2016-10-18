@@ -11,15 +11,14 @@ var expressValidator = require("express-validator");
 var routes = require("./routes/index");
 var users = require("./routes/users")
 
-//var setUpPassport = require("./setuppassport");
+var setUpPassport = require("./setuppassport");
 
 var app = express();
-
 
 mongoose.connect("mongodb://localhost:27017/Lion", function(){
 	console.log('Connected to Mongo server')
 });
-//setUpPassport();
+setUpPassport();
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -41,8 +40,8 @@ app.use(function(req, res, next){
 	res.locals.infos = req.flash("info");
 	next();
 });
-//app.use(passport.initialize());
-//app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(routes);
 
 app.use(users, function(req, res, next){

@@ -72,6 +72,7 @@ router.get('/login', function(req, res, next){
 });
 
 
+
 router.post('/login', function(req, res, next){
 
 	var username = req.body.username;
@@ -88,15 +89,14 @@ router.post('/login', function(req, res, next){
 			errors: errors,
 			title: 'Log in' 
 		});
-	} else {
-		req.flash('info','signed in')
-		return res.redirect('/', {
-			title:'Index'
-		});
-	}
+	} 
+	next();
 
-
-});
+},passport.authenticate("login",{
+	successRedirect: "/",
+	failureRedirect: "/login",
+	failureFlash: true
+}));
 
 
 module.exports = router;

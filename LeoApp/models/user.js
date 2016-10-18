@@ -11,6 +11,20 @@ var userSchema = mongoose.Schema({
 });
 
 
+userSchema.methods.checkPassword = function(guess, done){
+	bcrypt.compare(guess, this.password, function(err, isMatch){
+		done(err, isMatch);
+	})
+}
+
+userSchema.methods.displayName = function(){
+	return this.name;
+};
+
+userSchema.methods.user = function(){
+	return this;
+}
+
 var noop = function(){};
 
 var User = module.exports = mongoose.model("User", userSchema);
@@ -26,3 +40,4 @@ module.exports.createUser = function(newUser, callback){
 		});
 	});
 };
+
