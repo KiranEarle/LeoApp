@@ -1,0 +1,12 @@
+<% include templates\_header.ejs %>
+<div class="container">
+<form action='/editProfile' method="POST" >
+<p>
+	<input name="name" type="text"  value="<%= currentUser.displayName() %>" autofocus><br>
+	<input name="password" type="password" placeholder="New Password" autofocus autocomplete="nope"><br>
+	<input name="confirmPW" type="password" placeholder="Confirm Password" autofocus autocomplete="nope"><br>
+	<input type="submit" value="Update">
+</p>
+</form>
+</div>
+<% include templates\_footer.ejs %>

@@ -1,7 +1,7 @@
-var express = require('express'),
-	router = express.Router(),
-	User = require('../models/user.js'),
-	passport = require('passport');
+var express = require('express');
+var	router = express.Router();
+var	User = require('../models/user.js');
+var	passport = require('passport');
 
 	router.use(function(req, res, next){
 		res.locals.currentUser = req.user;
@@ -56,11 +56,10 @@ router.post('/signup', function(req, res, next){
 						if(err){ throw err;}
 						console.log(user);
 					});
-
 					req.flash('info', 'You have signed up successfully');
 					return res.redirect('/login');
 				}
-			});
+		});
 	}	
 
 });
@@ -70,8 +69,6 @@ router.get('/login', function(req, res, next){
 		title:'Log in'
 	})
 });
-
-
 
 router.post('/login', function(req, res, next){
 

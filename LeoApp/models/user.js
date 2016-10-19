@@ -11,6 +11,16 @@ var userSchema = mongoose.Schema({
 });
 
 
+userSchema.pre('save', function(done){
+	var user = this;
+	if(!user.isModified("password")){
+		return done();
+	};
+
+	user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_FACTOR), null);
+	done();
+});
+
 userSchema.methods.checkPassword = function(guess, done){
 	bcrypt.compare(guess, this.password, function(err, isMatch){
 		done(err, isMatch);
@@ -20,10 +30,6 @@ userSchema.methods.checkPassword = function(guess, done){
 userSchema.methods.displayName = function(){
 	return this.name;
 };
-
-userSchema.methods.user = function(){
-	return this;
-}
 
 var noop = function(){};
 

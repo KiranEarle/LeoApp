@@ -15,8 +15,8 @@
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 		<% if(currentUser){ %>
-				<li><a href="/login">Hi, <%= currentUser.displayName() %></a></li>
-				<li><a href="/signup">Log Out</a></li>
+				<li><a href="/editProfile">Hi, <%= currentUser.displayName() %></a></li>
+				<li><a href="/logout">Log Out</a></li>
 		<% } else { %>
 				<li><a href="/login">Login</a></li>
 				<li><a href="/signup">Sign up</a></li>
@@ -28,13 +28,17 @@
 <h1><%= title %></h1>
 <% errors.forEach(function(error) { %>
 	<div role="alert" class="alert alert-danger">
+	<% if(error.msg){ %>
 	<%= error.msg %>
+	<% } else {%>
+	<%= error %>
+	<% } %>	
 	</div>
 <% }) %>
 
 <% infos.forEach(function(info) { %>
-	<div role="alert" class="alert alert-danger">
+	<div role="alert" class="alert alert-info">
 	<%= info %>
 	</div>
 <% }) %>
-</div>
+
