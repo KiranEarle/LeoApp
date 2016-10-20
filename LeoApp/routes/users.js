@@ -46,10 +46,10 @@ router.post('/signup', function(req, res, next){
 			createAt: Date.now()
 		});
 	
-		User.find({$or:[{username: newUser.username}, {email: newUser.email}]}, function(err, user){
+		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
 				if(user){
-					req.flash('info','Either your username or email address already exist, please use a different one');
+					req.flash('info','Either your username or email already exist, please use a different one');
 					return res.redirect("/signup");
 				}else{
 						User.createUser(newUser, function(err,user){
