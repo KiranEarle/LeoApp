@@ -9,7 +9,8 @@ var flash = require("connect-flash");
 var expressValidator = require("express-validator");
 
 var routes = require("./routes/index");
-var users = require("./routes/users")
+var users = require("./routes/users");
+var articles = require("./routes/articles");
 
 var setUpPassport = require("./setuppassport");
 
@@ -42,8 +43,9 @@ app.use(function(req, res, next){
 });
 app.use(passport.initialize());
 app.use(passport.session());
-app.use(routes);
 
+app.use(routes);
+app.use(articles);
 app.use(users, function(req, res, next){
 	var err = new Error();
 	err.status = 404;

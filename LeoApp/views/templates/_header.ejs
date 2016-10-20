@@ -17,11 +17,12 @@
 		<% if(currentUser){ %>
 				<li><a href="/editProfile">Hi, <%= currentUser.displayName() %></a></li>
 				<li><a href="/logout">Log Out</a></li>
+				<li><a href="/newArticle">Post article</a></li>
 		<% } else { %>
 				<li><a href="/login">Login</a></li>
 				<li><a href="/signup">Sign up</a></li>
 				<% } %>
-			<li><a href="/article">Articles</a></li>
+			<li><a href="/articles">Articles</a></li>
 		</ul>	
 	</div>
 		<div class="container">

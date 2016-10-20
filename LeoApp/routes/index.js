@@ -14,7 +14,16 @@ router.get('/', function(req, res, next){
 	});
 });
 
-router.get('/editProfile', function(req, res, next){
+function ensureAuthenticated(req, res, next){
+	if(req.isAuthenticated()){
+		next();
+	}else{
+		req.flash("info", "You must be logged in to see this page.");
+		res.redirect("/login");
+	}
+}
+
+router.get('/editProfile', ensureAuthenticated, function(req, res, next){
 	res.render('editProfile', {
 		title: 'Edit Profile'
 	});

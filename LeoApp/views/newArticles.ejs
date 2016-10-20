@@ -1,0 +1,12 @@
+<% include templates\_header.ejs %>
+<%if (currentUser){%>
+	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+
+
+<form action="/newArticle" method="POST">
+	<input type="text" name="title" placeholder="Title" autofocus><br>
+	<textarea type="text" name="text" placeholder="Article text"></textarea><br>
+	<input type="submit" value="Post">
+</form>
+<% } %>
+<% include templates\_footer.ejs %>

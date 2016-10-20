@@ -9,5 +9,10 @@ h1{
 
 form input{
 	margin-top: 10px;
+}
+form textarea{
+	margin-top: 10px;
+	height: 200px;
+	width: 1000px;
 
 }

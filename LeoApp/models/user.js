@@ -5,9 +5,9 @@ var SALT_FACTOR = 10;
 var userSchema = mongoose.Schema({
 	username: {type:String, required:true, unique:true},
 	name: {type:String, required:true},
-	email: {type:String, required:true},
+	email: {type:String, required:true, unique:true},
 	password: {type:String, required:true},
-	createAt: {type:Date, default:Date.Now}
+	createAt: {type:Date, default:Date.now}
 });
 
 

@@ -3,10 +3,10 @@ var	router = express.Router();
 var	User = require('../models/user.js');
 var	passport = require('passport');
 
-	router.use(function(req, res, next){
-		res.locals.currentUser = req.user;
-		next();
-	});
+router.use(function(req, res, next){
+	res.locals.currentUser = req.user;
+	next();
+});
 
 router.get('/signup', function(req, res, next){
 	res.render('signup', {
@@ -42,17 +42,17 @@ router.post('/signup', function(req, res, next){
 			username: username,
 			name: name,
 			email: email,
-			password: password
+			password: password,
+			createAt: Date.now()
 		});
 	
-		User.findOne({username: newUser.username}, function(err, user){
+		User.find({$or:[{username: newUser.username}, {email: newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
 				if(user){
-					req.flash('info','This username already exists');
+					req.flash('info','Either your username or email address already exist, please use a different one');
 					return res.redirect("/signup");
 				}else{
-					
-					User.createUser(newUser, function(err,user){
+						User.createUser(newUser, function(err,user){
 						if(err){ throw err;}
 						console.log(user);
 					});

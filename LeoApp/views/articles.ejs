@@ -1,0 +1,5 @@
+<% include templates\_header.ejs %>
+<%if (currentUser){%>
+	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+<% } %>
+<% include templates\_footer.ejs %>
