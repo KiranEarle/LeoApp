@@ -8,7 +8,9 @@
 	<p>
 		<span class="haze">Created on: <%= article.createdAt %></span><br>
 		<span class="haze">Author: <%= article.author %></span><br>
-		<span><%= article.articleText.substring(0, 350)%>...</span>
+		<span><%= article.articleText.substring(0, 350)%>...</span><br>
+		<a href="/articles/<%= article.slug %>">Click here from more</a>
+		<hr>
 	</p>
 <% }) %>
 
