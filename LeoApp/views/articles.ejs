@@ -2,4 +2,14 @@
 <%if (currentUser){%>
 	<a href="/articles/<%= currentUser.username %>">My Articles</a>
 <% } %>
+
+<% articles.forEach(function(article){ %>
+	<h2><a href="/articles/<%= article.slug %>"><%= article.title %></a></h2>
+	<p>
+		<span class="haze">Created on: <%= article.createdAt %></span><br>
+		<span class="haze">Author: <%= article.author %></span><br>
+		<span><%= article.articleText.substring(0, 350)%>...</span>
+	</p>
+<% }) %>
+
 <% include templates\_footer.ejs %>
