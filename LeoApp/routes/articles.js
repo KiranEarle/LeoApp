@@ -9,8 +9,31 @@ router.use(function(req, res, next){
 });
 
 router.get('/articles', function(req, res, next){
+
+	Articles.find()
+	.sort({createdAt: 'descending'})
+	.exec(function(err, articles){
+		if(err){throw err;}
+
 	res.render('articles', {
-		title:'Articles'
+		title:'Articles',
+		articles:articles
+		});
+	});
+});
+
+
+router.get('/articles/:articleTitle', function(req, res, next){
+	var slug = req.params.articleTitle;
+
+	Articles.find({slug:slug}) 
+	.exec(function(err, article){
+		if(err){throw err}
+
+		res.render('oneArticle',{
+			title:article.title,
+			article:article
+		});	
 	});
 });
 
@@ -29,7 +52,7 @@ router.get('/newArticle',ensureAuthenticated, function(req, res, next){
 	});
 });
 
-router.post('/newArticle', function(req, res, next){
+router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 	var title = req.body.title;
 	var text = req.body.text;
 
@@ -48,6 +71,7 @@ router.post('/newArticle', function(req, res, next){
 		var newArticle = new Articles({
 			title: title,
 			articleText: text,
+			slug: title.replace(/\s/g,''),
 			author: req.user.username,
 			createdAt: Date.now()
 		});

@@ -3,10 +3,6 @@ body{
 	text-decoration: hidden;
 }
 
-h1{
-
-}
-
 form input{
 	margin-top: 10px;
 }
@@ -15,4 +11,7 @@ form textarea{
 	height: 200px;
 	width: 1000px;
 
+}
+.haze{
+	color: #ccd1d0;
 }

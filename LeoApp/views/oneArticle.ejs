@@ -1,0 +1,18 @@
+<% include templates\_header.ejs %>
+<%if (currentUser){%>
+	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+<% } %>
+
+<% article.forEach(function(body){ %>
+	<h1><%= body.title %></h1>
+	<p>
+		<span class="haze">Created on: <%= body.createdAt %></span><br>
+		<span class="haze">Author: <%= body.author %></span><br><br>
+		<span><%= body.articleText %></span><br><br>
+		<a href="/articles">Back to articles</a>
+
+	</p>
+<% }) %>
+
+
+<% include templates\_footer.ejs %>

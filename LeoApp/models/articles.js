@@ -5,6 +5,7 @@ var User = require('./user.js');
 var articleSchema = mongoose.Schema({
 	title:{type:String, required:true, unique:true},
 	articleText: {type:String},
+	slug: {type:String},
 	author: {type:String},
 	createdAt: {type:Date},
 	updated: {type:Date, default: Date.now},
