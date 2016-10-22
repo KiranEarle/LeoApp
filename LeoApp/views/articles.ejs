@@ -1,6 +1,6 @@
 <% include templates\_header.ejs %>
 <%if (currentUser){%>
-	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+	<a href="/article/<%= currentUser.username %>">My Articles</a>
 <% } %>
 
 <% articles.forEach(function(article){ %>
@@ -8,13 +8,9 @@
 	<p>
 		<span class="haze">Created on: <%= article.createdAt %></span><br>
 		<span class="haze">Author: <%= article.author %></span><br>
-<<<<<<< HEAD
 		<span><%= article.articleText.substring(0, 350)%>...</span><br>
 		<a href="/articles/<%= article.slug %>">Click here from more</a>
 		<hr>
-=======
-		<span><%= article.articleText.substring(0, 350)%>...</span>
->>>>>>> origin/master
 	</p>
 <% }) %>
 

@@ -1,23 +1,15 @@
 <% include templates\_header.ejs %>
 <%if (currentUser){%>
-	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+	<a href="/article/<%= currentUser.username %>">My Articles</a>
 <% } %>
 
 <% article.forEach(function(body){ %>
-<<<<<<< HEAD
 	<h1><%= body.title %></h1>
-=======
-	<h2><%= body.title %></h2>
->>>>>>> origin/master
 	<p>
 		<span class="haze">Created on: <%= body.createdAt %></span><br>
 		<span class="haze">Author: <%= body.author %></span><br><br>
 		<span><%= body.articleText %></span><br><br>
 		<a href="/articles">Back to articles</a>
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 	</p>
 <% }) %>
 

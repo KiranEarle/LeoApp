@@ -45,7 +45,7 @@ router.post('/signup', function(req, res, next){
 			password: password,
 			createAt: Date.now()
 		});
-	
+			console.log(password);
 		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
 				if(user){
@@ -86,7 +86,9 @@ router.post('/login', function(req, res, next){
 			errors: errors,
 			title: 'Log in' 
 		});
-	} 
+	}
+	console.log(username)
+	console.log(password) 
 	next();
 
 },passport.authenticate("login",{

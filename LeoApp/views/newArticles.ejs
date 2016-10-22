@@ -1,6 +1,6 @@
 <% include templates\_header.ejs %>
 <%if (currentUser){%>
-	<a href="/articles/<%= currentUser.username %>">My Articles</a>
+	<a href="/article/<%= currentUser.username %>">My Articles</a>
 
 
 <form action="/newArticle" method="POST">

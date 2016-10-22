@@ -47,11 +47,11 @@ router.post('/editProfile', function(req, res, next){
 		});
 	}else{
 
-		var user =  req.user;
+		// var user =  req.user;
 
-		user.password = password;
-		user.save(function(err){
+		User.changePassword(password, function(err, user){
 			if(err){throw(err)}
+				console.log(user);
 				req.flash('info','You have updated your account');
 				res.redirect('/');
 		});
