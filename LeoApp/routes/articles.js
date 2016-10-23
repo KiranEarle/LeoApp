@@ -48,7 +48,6 @@ function ensureAuthenticated(req, res, next){
 
 router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 	var user = req.params.user;
-	console.log('test')
 	Articles.find({author:user})
 	.exec(function(err, articles){
 		if(err){throw err}

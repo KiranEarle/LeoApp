@@ -2,6 +2,7 @@ var express = require('express');
 var	router = express.Router();
 var	passport = require('passport');
 var User = require("../models/user.js");
+var Articles = require('../models/articles.js');
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -9,9 +10,20 @@ router.use(function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
-	res.render('index', {
-		title:'Dashboard'
+
+	Articles.find({author:req.user.username})
+	.sort({createdAt:"descending"})
+	.exec(function(err, articles){
+		if(err){throw err}
+				console.log(articles)
+
+		res.render('index', {
+			title:'Dashboard',
+			articles: articles
+		});
 	});
+
+
 });
 
 function ensureAuthenticated(req, res, next){
