@@ -6,26 +6,31 @@ var userSchema = mongoose.Schema({
 	username: {type:String, required:true, unique:true},
 	name: {type:String, required:true},
 	email: {type:String, required:true, unique:true},
-	password: {type:String, required:true}//,
-	//createAt: {type:Date, default:Date.now}
+	password: {type:String, required:true},
+	createAt: {type:Date, default:Date.now}
 });
 
 
-// userSchema.pre('save', function(done){
-// 	var user = this;
-// 	if(!user.isModified("password")){
-// 		return done();
-// 	};
+userSchema.pre('save', function(done){
+	var user = this;
+	if(!user.isModified("password")){
+		return done();
+	};
 
-// 	user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_FACTOR), null);
-// 	done();
-// });
+	bcrypt.genSalt(SALT_FACTOR, function(err, salt){
+		if(err){return done(err);}
+		bcrypt.hash(user.password, salt, noop, function(err, hashedPassword){
+			if(err){return done(err);}
+			user.password = hashedPassword;
+			done();
+		});
+	});	
+});
 
 userSchema.methods.changePassword = function(userPassword, callback){
-	var user = this;
-	user.password = bcrypt.hashSync(userPassword.password, bcrypt.genSaltSync(SALT_FACTOR), null);
-	userPassword.save(callback)
- 	done();
+
+bcrypt.hashSync(userPassword, bcrypt.genSaltSync(SALT_FACTOR), null);	
+
 }
 
 userSchema.methods.checkPassword = function(guess, done){
@@ -41,16 +46,3 @@ userSchema.methods.displayName = function(){
 var noop = function(){};
 
 var User = module.exports = mongoose.model("User", userSchema);
-
-module.exports.createUser = function(newUser, callback){
-
-	bcrypt.genSalt(SALT_FACTOR, function(err, salt){
-		if(err){return done(err);}
-		bcrypt.hash(newUser.password, salt, noop, function(err, hashedPassword){
-			if(err){return done(err);}
-			newUser.password = hashedPassword;
-			newUser.save(callback);
-		});
-	});
-};
-

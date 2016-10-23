@@ -45,22 +45,19 @@ router.post('/signup', function(req, res, next){
 			password: password,
 			createAt: Date.now()
 		});
-			console.log(password);
 		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
 				if(user){
 					req.flash('info','Either your username or email already exist, please use a different one');
 					return res.redirect("/signup");
-				}else{
-						User.createUser(newUser, function(err,user){
-						if(err){ throw err;}
-						console.log(user);
+				}
+						newUser.save(next);
 					});
 					req.flash('info', 'You have signed up successfully');
 					return res.redirect('/login');
-				}
-		});
-	}	
+				
+		};
+	
 
 });
 
@@ -87,8 +84,6 @@ router.post('/login', function(req, res, next){
 			title: 'Log in' 
 		});
 	}
-	console.log(username)
-	console.log(password) 
 	next();
 
 },passport.authenticate("login",{

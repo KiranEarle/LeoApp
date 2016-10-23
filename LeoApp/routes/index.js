@@ -47,15 +47,17 @@ router.post('/editProfile', function(req, res, next){
 		});
 	}else{
 
-		// var user =  req.user;
 
-		User.changePassword(password, function(err, user){
-			if(err){throw(err)}
-				console.log(user);
+			var user = req.user;
+		User.findOne({username: user.username}, function(err, user){
+			if(err){throw err}
+			user.password = password
+			user.save(next)
+		});
 				req.flash('info','You have updated your account');
 				res.redirect('/');
-		});
-	};
+		};
+	
 });
 router.get('/logout', function(req, res){
 	req.logout();
