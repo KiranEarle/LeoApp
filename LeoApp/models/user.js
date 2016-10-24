@@ -17,15 +17,27 @@ userSchema.pre('save', function(done){
 		return done();
 	};
 
-	user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(SALT_FACTOR), null);
-	done();
+	bcrypt.genSalt(SALT_FACTOR, function(err, salt){
+		if(err){return done(err);}
+		bcrypt.hash(user.password, salt, noop, function(err, hashedPassword){
+			if(err){return done(err);}
+			user.password = hashedPassword;
+			done();
+		});
+	});	
 });
+
+userSchema.methods.changePassword = function(userPassword, callback){
+
+bcrypt.hashSync(userPassword, bcrypt.genSaltSync(SALT_FACTOR), null);	
+
+}
 
 userSchema.methods.checkPassword = function(guess, done){
 	bcrypt.compare(guess, this.password, function(err, isMatch){
 		done(err, isMatch);
-	})
-}
+	});
+};
 
 userSchema.methods.displayName = function(){
 	return this.name;
@@ -34,16 +46,3 @@ userSchema.methods.displayName = function(){
 var noop = function(){};
 
 var User = module.exports = mongoose.model("User", userSchema);
-
-module.exports.createUser = function(newUser, callback){
-
-	bcrypt.genSalt(SALT_FACTOR, function(err, salt){
-		if(err){return done(err);}
-		bcrypt.hash(newUser.password, salt, noop, function(err, hashedPassword){
-			if(err){return done(err);}
-			newUser.password = hashedPassword;
-			newUser.save(callback);
-		});
-	});
-};
-

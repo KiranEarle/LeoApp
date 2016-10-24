@@ -46,6 +46,18 @@ function ensureAuthenticated(req, res, next){
 	}
 }
 
+router.get('/article/:user', ensureAuthenticated, function(req, res, next){
+	var user = req.params.user;
+	Articles.find({author:user})
+	.exec(function(err, articles){
+		if(err){throw err}
+			console.log(articles)
+			res.render('articles',{
+				title:'Your articles',
+				articles:articles
+			});
+	});
+});
 router.get('/newArticle',ensureAuthenticated, function(req, res, next){
 	res.render('newArticles', {
 		title:'Post Article'

@@ -1,2 +1,23 @@
 <% include templates\_header.ejs %>
+<div class="container">
+  <div class="jumbotron">
+  	<% if (currentUser) {%>
+  	<h2>Hi <%= currentUser.displayName()%></h2>
+
+   		<span>Most recent articles:</span><br><br>
+   <% articles.forEach(function(article){ %>
+
+   		<h4><%= article.title %></h4>
+   		<span class="haze">Created on: <%= article.createdAt %></span><br>
+		<span><%= article.articleText.substring(0, 100)%>...</span><br>
+		<a href="/articles/<%= article.slug %>">Click here from more</a>
+   	<% }) %>
+   <% } else { %>
+
+<h2>Welcome</h2>
+
+   <% } %>
+  </div>
+</div>
+
 <% include templates\_footer.ejs %>
