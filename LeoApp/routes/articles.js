@@ -37,38 +37,34 @@ router.get('/articles/:articleTitle', function(req, res, next){
 	});
 });
 
-router.post('articles/:articleTitle', function(req, res, next){
-	var slug = req.params.articleTitle;
+router.post('/articles/:articleTitle', function(req, res, next){
 	var comment = req.body.comment;
-
+	var slug = req.params.articleTitle
 	req.checkBody('comment','Please add a comment').notEmpty();
+		var errors = req.validationErrors();
 
-	var errors = validationErrors();
-
-	Articles.find({slug:slug}) 
-		.exec(function(err, article){
-			if(err){throw err}
-		if(errors){
-			res.render('oneArticle', {
-				title:article.title,
-				article:article,
-				errors:errors
+	if(errors){
+		res.render('oneArticle', {
+			title:article.title,
+			article:article,
+			errors:errors
 			})
 		} else {
-
-			article.comment = comment;
+	Articles.findOne({slug:slug}, function(err, article){
+			if(err){throw err}
+			article.comment.articaleText = comment;
 			article.save();
 			req.flash("info", "Comment posted");
 			res.redirect("/articles/"+ slug +"");
-		};
-	});
+		});
+	};
 });
 
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		next();
 	}else{
-		req.flash("info", "You must be logged in to see this page.");
+		req.flash("info", "Please log in.");
 		res.redirect("/login");
 	}
 }

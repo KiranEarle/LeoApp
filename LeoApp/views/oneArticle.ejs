@@ -14,7 +14,7 @@
 	</p>
 
 <% if (currentUser) {%>
-	<form method="/articles/<%= body.slug %>" action="POST">
+	<form action="/articles/<%= body.slug %>" method="POST">
 		<textarea type="text" name="comment" placeholder="Comment" autofocus></textarea><br>
 		<input type="submit" value="Post">
 	</form><br>
