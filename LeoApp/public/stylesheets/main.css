@@ -1,25 +1,35 @@
 body{
 	font-family: "Calibri", sans-serif;
 	text-decoration: hidden;
+	height:100%;
 }
 
 form input{
 	margin-top: 10px;
 }
+
 form textarea{
+	width: 500px;
+}
+.article-text-area{
 	margin-top: 10px;
 	height: 200px;
 	width: 1000px;
-
 }
-
+.body-stretcher{
+	min-height:100%;
+   position:relative;
+}
 .header{
 	background-image: url('../images/Lion.jpg');
 	text-decoration: none;
 	color: white;
 }
-.header ul{
+.header ul li a{
 	color: white;
+}
+.header ul li a:hover{
+	color: #000;
 }
 
 .title-image-article{

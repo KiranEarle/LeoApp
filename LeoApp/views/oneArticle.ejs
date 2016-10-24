@@ -9,10 +9,16 @@
 		<span class="haze">Created on: <%= body.createdAt %></span><br>
 		<span class="haze">Author: <%= body.author %></span><br><br>
 		<span><%= body.articleText %></span><br><br>
-		<a href="/articles">Back to articles</a>
+
 
 	</p>
+
+<% if (currentUser) {%>
+	<form method="/articles/<%= body.slug %>" action="POST">
+		<textarea type="text" name="comment" placeholder="Comment" autofocus></textarea><br>
+		<input type="submit" value="Post">
+	</form><br>
+<% } %>
 <% }) %>
-
-
+		<a href="/articles">Back to articles</a>
 <% include templates\_footer.ejs %>

@@ -37,6 +37,33 @@ router.get('/articles/:articleTitle', function(req, res, next){
 	});
 });
 
+router.post('articles/:articleTitle', function(req, res, next){
+	var slug = req.params.articleTitle;
+	var comment = req.body.comment;
+
+	req.checkBody('comment','Please add a comment').notEmpty();
+
+	var errors = validationErrors();
+
+	Articles.find({slug:slug}) 
+		.exec(function(err, article){
+			if(err){throw err}
+		if(errors){
+			res.render('oneArticle', {
+				title:article.title,
+				article:article,
+				errors:errors
+			})
+		} else {
+
+			article.comment = comment;
+			article.save();
+			req.flash("info", "Comment posted");
+			res.redirect("/articles/"+ slug +"");
+		};
+	});
+});
+
 function ensureAuthenticated(req, res, next){
 	if(req.isAuthenticated()){
 		next();
@@ -53,7 +80,7 @@ router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 		if(err){throw err}
 			console.log(articles)
 			res.render('articles',{
-				title:'Your articles',
+				title:'My articles',
 				articles:articles
 			});
 	});
