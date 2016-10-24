@@ -9,14 +9,18 @@
 
 </head>
 <body>
-	<div class="container">
+	<div class="container header">
 		<div class="navbar-header">
-			<a class="navbar-brand" href="/">LionApp</a>
+		<% if(currentUser){ %>
+		<a href="/home"><img class="title-image-article" src="images/LionBrandTVLogo2.png"></a>
+		<% } else { %>
+		<a href="/"><img class="title-image-article" src="images/LionBrandTVLogo2.png"></a>
+		<% } %>
 		</div>
 		<ul class="nav navbar-nav navbar-right">
 
 		<% if(currentUser){ %>
-				<li><a href="/editProfile">Hi, <%= currentUser.displayName() %></a></li>
+				<li><a href="/myProfile">Hi, <%= currentUser.displayName() %></a></li>
 				<li><a href="/articles">Articles</a></li>
 				<li><a href="/newArticle">Post article</a></li>
 				<li><a href="/logout">Log Out</a></li>

@@ -10,9 +10,16 @@ router.use(function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
+	res.render('index', {
+		title:'Dashboard'
+	});
+})
+
+router.get('/home', ensureAuthenticated, function(req, res, next){
 
 	Articles.find({author:req.user.username})
 	.sort({createdAt:"descending"})
+	.limit(3)
 	.exec(function(err, articles){
 		if(err){throw err}
 				console.log(articles)
@@ -35,13 +42,19 @@ function ensureAuthenticated(req, res, next){
 	}
 }
 
-router.get('/editProfile', ensureAuthenticated, function(req, res, next){
-	res.render('editProfile', {
-		title: 'Edit Profile'
+router.get('/myProfile', ensureAuthenticated, function(req, res, next){
+	res.render('myProfile', {
+		title: 'My Profile'
 	});
 });
 
-router.post('/editProfile', function(req, res, next){
+router.get('/changePassword', ensureAuthenticated, function(req, res, next){
+	res.render('changePassword', {
+		title: 'Change Password'
+	});
+});
+
+router.post('/changePassword', function(req, res, next){
 	var name = req.body.name;
 	var password = req.body.password;
 	var confirmPW = req.body.confirmPW;
@@ -53,8 +66,8 @@ router.post('/editProfile', function(req, res, next){
 	var errors = req.validationErrors();
 
 	if(errors){
-		res.render('editProfile',{
-			title:'Edit Profile',
+		res.render('changePassword',{
+			title:'Change Password',
 			errors: errors
 		});
 	}else{
