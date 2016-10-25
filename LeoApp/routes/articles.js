@@ -51,8 +51,12 @@ router.post('/articles/:articleTitle', function(req, res, next){
 			})
 		} else {
 	Articles.findOne({slug:slug}, function(err, article){
-			if(err){throw err}
-			article.comment.articaleText = comment;
+		if(err){throw err}
+			article.comment.push({
+				articaleText:comment,
+				author:req.user.username,
+				createdAt: Date.now()
+			});
 			article.save();
 			req.flash("info", "Comment posted");
 			res.redirect("/articles/"+ slug +"");
