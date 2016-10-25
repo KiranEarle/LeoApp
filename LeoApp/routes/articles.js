@@ -45,7 +45,7 @@ router.post('/articles/:articleTitle', function(req, res, next){
 
 	if(errors){
 		res.render('oneArticle', {
-			title:article.title,
+			title:req.params.articleTitle,
 			article:article,
 			errors:errors
 			})
@@ -53,8 +53,8 @@ router.post('/articles/:articleTitle', function(req, res, next){
 	Articles.findOne({slug:slug}, function(err, article){
 		if(err){throw err}
 			article.comment.push({
-				articaleText:comment,
-				author:req.user.username,
+				articleComment:comment,
+				commentAuthor:req.user.username,
 				createdAt: Date.now()
 			});
 			article.save();

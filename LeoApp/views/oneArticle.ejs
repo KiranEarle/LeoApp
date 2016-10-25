@@ -15,10 +15,25 @@
 
 <% if (currentUser) {%>
 	<form action="/articles/<%= body.slug %>" method="POST">
-		<textarea type="text" name="comment" placeholder="Comment" autofocus></textarea><br>
+		<textarea type="text" name="comment" placeholder="Comment" autofocus required></textarea><br>
 		<input type="submit" value="Post">
 	</form><br>
 <% } %>
-<% }) %>
+
+
+<p>
+<%	for(commentIndex in body.comment) { %>
+<% if(body.comment[commentIndex].commentAuthor == body.author){ %>
+<span class="haze"> <%= body.comment[commentIndex].commentAuthor %>: </span><br>
+<span> <%= body.comment[commentIndex].articleComment %> </span><br>
+<span class="haze"> <%= body.comment[commentIndex].createdAt %> </span><br><br>
+
+<% } %>
+<% } %>
+</p>
+<% }) %><br><br>
+
+
+
 		<a href="/articles">Back to articles</a>
 <% include templates\_footer.ejs %>

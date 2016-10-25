@@ -11,14 +11,14 @@ var articleSchema = mongoose.Schema({
 	updated: {type:Date, default: Date.now},
 	comment:[
 				{
-				articaleText: {type:String},
-				author:{type:String},
+				articleComment: {type:String},
+				commentAuthor:{type:String},
 				createdAt: {type:Date, default: Date.now}
 				}
 			],
 	tags:
 		[
-			{articaleText: {type:String}}
+			{tag: {type:String}}
 		]
 });
 
