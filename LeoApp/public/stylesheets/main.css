@@ -7,7 +7,9 @@ body{
 form input{
 	margin-top: 10px;
 }
-
+.font-size-18{
+	font-size: 18px;
+}
 form textarea{
 	width: 500px;
 }
@@ -15,6 +17,9 @@ form textarea{
 	margin-top: 10px;
 	height: 200px;
 	width: 1000px;
+}
+.comment-box{
+	width: 900px;
 }
 .body-stretcher{
 	min-height:100%;
@@ -53,5 +58,11 @@ footer{
 @media screen and (max-width: 767px){
 	.header ul li a{
 		text-align: center;
+	}
+}
+@media screen and (max-width: 550px){
+	form textarea{
+		width: 200px;
+		height: 200px;
 	}
 }
