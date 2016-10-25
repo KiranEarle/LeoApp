@@ -9,7 +9,10 @@
 		<span class="haze">Created on: <%= article.createdAt %></span><br>
 		<span class="haze">Author: <%= article.author %></span><br>
 		<span><%= article.articleText.substring(0, 350)%>...</span><br>
-		<a href="/articles/<%= article.slug %>">Click here from more</a>
+		<a href="/articles/<%= article.slug %>">Click here from more</a><br><br>
+		<% if (!article.comment.length == 0) {%>
+		<span class="haze">Comments: <%= article.comment.length %></span>
+		<% } %>
 		<hr>
 	</p>
 <% }) %>

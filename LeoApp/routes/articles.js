@@ -17,7 +17,7 @@ router.get('/articles', function(req, res, next){
 
 	res.render('articles', {
 		title:'Articles',
-		articles:articles
+		articles:articles,
 		});
 	});
 });
