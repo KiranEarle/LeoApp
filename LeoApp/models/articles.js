@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongoosePaginate = require('mongoose-paginate');
 var User = require('./user.js');
 
 
@@ -21,5 +22,7 @@ var articleSchema = mongoose.Schema({
 			{tag: {type:String}}
 		]
 });
+
+articleSchema.plugin(mongoosePaginate);
 
 var Articles = module.exports = mongoose.model("Articles", articleSchema);
