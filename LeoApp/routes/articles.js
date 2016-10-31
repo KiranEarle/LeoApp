@@ -2,13 +2,9 @@ var express = require('express');
 var	router = express.Router();
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
-var paginate = require('express-paginate');
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
-	res.locals.paginate = paginate.href;
-	res.locals.hasPreviousPages = paginate.hasPreviousPages;
-	res.locals.hasNextPages = paginate.hasNextPages;
 	next();
 });
 
