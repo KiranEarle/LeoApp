@@ -54,7 +54,9 @@ footer{
 	bottom:0;
 	text-align: center;	
 }
-
+.pagination{
+	cursor: pointer;
+}
 @media screen and (max-width: 767px){
 	.header ul li a{
 		text-align: center;
