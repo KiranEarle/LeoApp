@@ -7,6 +7,7 @@ var passport = require("passport");
 var session = require("express-session");
 var flash = require("connect-flash");
 var expressValidator = require("express-validator");
+var paginate = require('express-paginate');
 
 var routes = require("./routes/index");
 var users = require("./routes/users");
@@ -20,6 +21,8 @@ mongoose.connect("mongodb://localhost:27017/Lion", function(){
 	console.log('Connected to Mongo server')
 });
 setUpPassport();
+
+app.use(paginate.middleware(5, 50));
 app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
@@ -43,7 +46,6 @@ app.use(function(req, res, next){
 });
 app.use(passport.initialize());
 app.use(passport.session());
-
 app.use(routes);
 app.use(articles);
 app.use(users, function(req, res, next){

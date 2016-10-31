@@ -3,7 +3,9 @@
 	<a href="/article/<%= currentUser.username %>">My Articles</a>
 <% } %>
 
+<div class="list-of-post">
 <% articles.forEach(function(article){ %>
+<div class="post">
 	<h2><a href="/articles/<%= article.slug %>"><%= article.title %></a></h2>
 	<p>
 		<span class="haze">Created on: <%= article.createdAt %></span><br>
@@ -15,6 +17,12 @@
 		<% } %>
 		<hr>
 	</p>
+</div>
 <% }) %>
+</div>
+
+<div class="paginations">
+	
+</div>
 
 <% include templates\_footer.ejs %>
