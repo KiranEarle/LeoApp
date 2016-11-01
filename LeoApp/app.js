@@ -12,6 +12,7 @@ var paginate = require('express-paginate');
 var routes = require("./routes/index");
 var users = require("./routes/users");
 var articles = require("./routes/articles");
+var admin = require("./routes/admin");
 
 var setUpPassport = require("./setuppassport");
 
@@ -48,6 +49,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
 app.use(articles);
+app.use(admin);
 app.use(users, function(req, res, next){
 	var err = new Error();
 	err.status = 404;

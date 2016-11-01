@@ -43,7 +43,8 @@ router.post('/signup', function(req, res, next){
 			name: name,
 			email: email,
 			password: password,
-			createAt: Date.now()
+			createAt: Date.now(),
+			isAdmin: false
 		});
 		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
@@ -51,14 +52,13 @@ router.post('/signup', function(req, res, next){
 					req.flash('info','Either your username or email already exist, please use a different one');
 					return res.redirect("/signup");
 				}
-						newUser.save(next);
-					});
-					req.flash('info', 'You have signed up successfully');
-					return res.redirect('/login');
+			newUser.save(next);
+		});
+					
+	req.flash('info', 'You have signed up successfully');
+	return res.redirect('/login');
 				
-		};
-	
-
+	};
 });
 
 router.get('/login', function(req, res, next){

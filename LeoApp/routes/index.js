@@ -17,7 +17,7 @@ router.get('/', function(req, res, next){
 
 router.get('/home', ensureAuthenticated, function(req, res, next){
 
-	Articles.find({author:req.user.username})
+	Articles.find()
 	.sort({createdAt:"descending"})
 	.limit(3)
 	.exec(function(err, articles){
