@@ -1,0 +1,28 @@
+<% include templates\_header.ejs %>
+<div class="container">
+
+		<form action="/admin/<%=user.username%>" method="POST">
+
+			<span>Signed up:</span><br>
+			<span><%= user.createAt %></span><br><br>
+
+			<span>Username:</span><br>
+			<input type="text" name="username" value="<%= user.username %>" autofocus required><br><br>
+			<span>Name:</span><br>
+			<input type="text" name="name" value="<%= user.name %>" autofocus required><br><br>
+			<span>Email Address:</span><br>
+			<input type="text" name="email" value="<%= user.email %>" autofocus required><br><br>
+			<span>New Password:</span><br>
+			<input type="password" name="password" autofocus><br><br>
+			<span>Confirm Password:</span><br>
+			<input type="password" name="confirmPW"  autofocus><br><br>
+			<input type="submit" value="update">
+		</form>
+
+		<form action="/admin/delete/<%=user.username%>" method="DELETE">
+			<input type="submit" value="delete user">
+		</form><br>
+
+<span><a href="/admin/searchUser"><<-- back to users</a></span>
+</div>
+<% include templates\_footer.ejs %>

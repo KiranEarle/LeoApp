@@ -1,3 +1,8 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
 body{
 	font-family: "Calibri", sans-serif;
 	text-decoration: hidden;
@@ -49,8 +54,9 @@ footer{
 	background-image: url("../images/Lion.jpg");
 	color: #fff;
 	margin: 0px;
+	width: 100%;
 	padding-bottom: 10px;
-	position:relative;
+	position:absolute;
 	bottom:0;
 	text-align: center;	
 }

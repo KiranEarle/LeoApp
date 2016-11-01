@@ -61,4 +61,70 @@ router.post('/admin/searchUser',ensureAuthenticated, adminValidator, function(re
 	});
 
 });
+
+router.get('/admin/:user',ensureAuthenticated, adminValidator, function(req, res, next){
+	var users = req.params.user;
+
+	User.findOne({username:users}, function(err, user){
+		if(err){throw err}
+		if(user){
+			res.render('adminUserProfile',{
+				title: "User Profile",
+				user: user
+			
+			});
+		};	
+	});
+
+});
+
+
+router.post('/admin/:user',ensureAuthenticated, adminValidator, function(req, res, next){ 
+	var users = req.params.user;
+	var username = req.body.username;
+	var name = req.body.name;
+	var email = req.body.email;
+	var password = req.body.password;
+	var confrimPW = req.body.confirmPW;
+	var isAdmin = req.body.adminCheck;
+
+	req.checkBody('confirmPW', 'Please make sure your password matches').equals(req.body.password);
+
+	var errors = req.validationErrors();
+
+	if(errors){
+		User.findOne({username:users}, function(err, user){
+		if(err){throw err}
+		if(user){
+			res.render('adminUserProfile',{
+				title: "User Profile",
+				user: user,
+				errors: errors
+			});
+		};	
+	});
+		
+	}else{
+		console.log(isAdmin)
+		User.findOne({username:users}, function(err, user){
+			if(err){throw err}
+			if(password == ""){
+				user.username = username;
+				user.name = name;
+				user.email = email;
+
+				user.save()
+			}else{
+				user.username = username;
+				user.name = name;
+				user.email = email;
+				user.password = password;
+				user.save()
+			}
+			req.flash("info", "Profile updated!");
+			res.redirect("/admin/"+ users +"")
+		});
+	}
+
+});
 module.exports = router;
