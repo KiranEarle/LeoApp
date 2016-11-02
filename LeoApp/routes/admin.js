@@ -31,6 +31,7 @@ router.get('/admin',ensureAuthenticated, adminValidator, function(req, res, next
 	});
 });
 
+//Users admin
 router.get('/admin/searchUser',ensureAuthenticated, adminValidator, function(req, res, next){
 	
 	User.find()
@@ -105,7 +106,7 @@ router.post('/admin/:user',ensureAuthenticated, adminValidator, function(req, re
 	});
 		
 	}else{
-		console.log(isAdmin)
+		
 		User.findOne({username:users}, function(err, user){
 			if(err){throw err}
 			if(password == ""){
@@ -127,4 +128,33 @@ router.post('/admin/:user',ensureAuthenticated, adminValidator, function(req, re
 	}
 
 });
+
+router.post('/adminDeactivate/:user', function(req, res, next){
+	var username = req.params.user;
+	var deactivated = "deactive"
+	User.findOne({username: username}, function(err, user){
+		if(err){ throw err}
+			user.status = deactivated;
+		user.save()
+	});
+		req.flash("info", "User has been deactivated");
+		res.redirect("/admin/"+ username +"");
+});
+
+router.post('/adminActivate/:user', function(req, res, next){
+	var username = req.params.user;
+	var Activated = "active"
+	User.findOne({username: username}, function(err, user){
+		if(err){ throw err}
+			user.status = Activated;
+		user.save()
+	});
+		req.flash("info", "User has been activated");
+		res.redirect("/admin/"+ username +"");
+});
+
+
+
+//Article admin
+
 module.exports = router;

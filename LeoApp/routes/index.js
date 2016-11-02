@@ -22,8 +22,6 @@ router.get('/home', ensureAuthenticated, function(req, res, next){
 	.limit(3)
 	.exec(function(err, articles){
 		if(err){throw err}
-				console.log(articles)
-
 		res.render('index', {
 			title:'Dashboard',
 			articles: articles

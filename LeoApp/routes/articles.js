@@ -79,6 +79,7 @@ function ensureAuthenticated(req, res, next){
 
 router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 	var user = req.params.user;
+
 	Articles.find({author:user})
 	.exec(function(err, articles){
 		if(err){throw err}
@@ -98,7 +99,8 @@ router.get('/newArticle',ensureAuthenticated, function(req, res, next){
 router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 	var title = req.body.title;
 	var text = req.body.text;
-
+	var username = req.user.username;
+	var slug = req.user.username +'_'+ req.body.title.replace(/\s/g,'')
 	req.checkBody('title','Please enter a title').notEmpty();
 	req.checkBody('text','Please enter some text').notEmpty();
 
@@ -114,15 +116,22 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 		var newArticle = new Articles({
 			title: title,
 			articleText: text,
-			slug: title.replace(/\s/g,''),
-			author: req.user.username,
+			slug: slug,
+			author: username,
 			createdAt: Date.now()
 		});
 
-	newArticle.save(function(err, article){
-		if (err){throw err}
-			console.log(newArticle)
-	});
+	Articles.findOne({slug:slug}, function(err, article){
+		if(err){throw err}
+			if(article){
+				newArticle.slug = slug + Math.random() * 9;
+			}
+
+		newArticle.save(function(err, article){
+			if (err){throw err}
+		});
+	})
+
 	req.flash('info','Your article has been posted');
 	res.redirect('/articles');
 	}

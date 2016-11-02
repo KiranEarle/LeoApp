@@ -24,10 +24,10 @@
 				<li><a href="/myProfile">Hi, <%= currentUser.displayName() %></a></li>
 				<li><a href="/articles">Articles</a></li>
 				<li><a href="/newArticle">Post article</a></li>
-				<li><a href="/logout">Log Out</a></li>
 				<% if(currentUser.isAdmin == true) {%>
 					<li><a href="/admin">Admin</a></li>
-				<% } %>
+				<% } %>				
+				<li><a href="/logout">Log Out</a></li>
 		<% } else { %>
 				<li><a href="/articles">Articles</a></li>
 				<li><a href="/login">Login</a></li>

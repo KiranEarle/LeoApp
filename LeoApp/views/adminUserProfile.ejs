@@ -19,10 +19,16 @@
 			<input type="submit" value="update">
 		</form>
 
-		<form action="/admin/delete/<%=user.username%>" method="DELETE">
-			<input type="submit" value="delete user">
-		</form><br>
 
+		<% if (user.status == "active") {%>
+		<form action="/adminDeactivate/<%=user.username%>" method="POST">
+			<input type="submit" value="deactivate user">
+		</form><br>
+		<% }else{ %>
+		<form action="/adminActivate/<%=user.username%>" method="POST">
+			<input type="submit" value="activate user">
+		</form><br>
+		<% } %>
 <span><a href="/admin/searchUser"><<-- back to users</a></span>
 </div>
 <% include templates\_footer.ejs %>

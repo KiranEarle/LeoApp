@@ -44,7 +44,8 @@ router.post('/signup', function(req, res, next){
 			email: email,
 			password: password,
 			createAt: Date.now(),
-			isAdmin: false
+			isAdmin: false,
+			status: "active"
 		});
 		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
@@ -84,8 +85,14 @@ router.post('/login', function(req, res, next){
 			title: 'Log in' 
 		});
 	}
-	next();
 
+	User.findOne({username:username}, function(err, user){
+		if(user.status == "deactive"){
+			req.flash('info','Your account has be locked, please contact admin for more information')
+			res.redirect('/login')		
+		}
+	});
+		next();
 },passport.authenticate("login",{
 	successRedirect: "/home",
 	failureRedirect: "/login",
