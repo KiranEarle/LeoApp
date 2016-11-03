@@ -23,6 +23,5 @@ var articleSchema = mongoose.Schema({
 		]
 });
 
-articleSchema.plugin(mongoosePaginate);
 
 var Articles = module.exports = mongoose.model("Articles", articleSchema);

@@ -1,0 +1,28 @@
+<% include templates\_header.ejs %>
+<div class="container">
+<p>
+<span>Author: <a href="/admin/<%= article.author%>"><%= article.author %></a></span><br>
+<span>Created: <%= article.createdAt %></span><br>
+<span>Comments: <%= article.comment.length %></span><br>
+</p>
+<form action="/adminSearchArticle" method="POST">
+	<span>Title:</span><br>
+	<input type="text" name="title" value="<%= article.title %>"><br><br>
+	<span>Article text:</span><br>
+	<textarea type="text" name="articleText" style="height:200px; width:700px"><%= article.articleText %></textarea>
+</form><br><br>
+<p>
+<h3>Comments:</h3>
+<% article.comment.forEach(function(body){ %>
+	<form action="/adminSearchArticleCommentRemoved/<%= article.slug %>" method="POST">
+	<span>Comment made by:</span><br><input type="text" name="author" value="<%= body.commentAuthor %>" readonly><br>
+	<a href="/admin/<%= body.commentAuthor%>">Go to user</a><br><br>
+	<span>Comment made on: </span><%= body.createdAt %><br><br>
+	<textarea type="text" name="comment" style="height:200px" readonly><%= body.articleComment %></textarea><br>
+	<input type="submit" value="Delete comment"> 
+	</form>
+	<hr>
+<% }) %>
+</p>
+</div>
+<% include templates\_footer.ejs %>

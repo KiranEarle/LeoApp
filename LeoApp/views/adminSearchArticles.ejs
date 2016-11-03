@@ -1,0 +1,35 @@
+<% include templates\_header.ejs %>
+<div class="container">
+<p>Enter the article title you are searching for:</p>
+<form action="/adminSearchArticle" method="POST">
+	<input type="text" name="articleSearch" placeholder="article name" autofocus required>
+	<input type="submit" value="search">
+</form>
+</div><br>
+
+<div class="container">
+	<table class="table">
+		<thread>
+		<tr>
+		<th>Article</th>
+		<th>Author</th>
+		<th>Date Created</th>
+		<th>Comments</th>
+		<th>View Article</th>
+		</tr>
+		</thread>
+		<tbody>
+	<% articles.forEach(function(article){ %>
+		    <tr>
+        		<td><%= article.title %></td>
+        		<td><%= article.author %></td>
+        		<td><%= article.createdAt %></td>
+        		<td><%= article.comment.length %></td>
+        		<td><a href="/adminSearchArticle/<%= article.slug %>">View</a></td>
+      		</tr>
+    <% }) %>
+		</tbody>
+	</table>
+	<span><a href="/admin"><<-- Back to admin</a></span>
+</div>
+<% include templates\_footer.ejs %>

@@ -2,6 +2,7 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user.js');
 var	passport = require('passport');
+var Articles = require('../models/articles.js');
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -106,7 +107,7 @@ router.post('/admin/:user',ensureAuthenticated, adminValidator, function(req, re
 	});
 		
 	}else{
-		
+
 		User.findOne({username:users}, function(err, user){
 			if(err){throw err}
 			if(password == ""){
@@ -154,7 +155,50 @@ router.post('/adminActivate/:user', function(req, res, next){
 });
 
 
+router.get('/adminSearchArticle',ensureAuthenticated, adminValidator, function(req, res, next){
+	
+	Articles.find()
+	.sort({createdAt:"descending"})
+	.exec(function(err, articles){
+		if(err){throw err}
 
-//Article admin
+		res.render('adminSearchArticles', {
+			title: 'Article Search',
+			articles:articles
+		});
+	});
+});
 
+router.get('/adminSearchArticle/:article',ensureAuthenticated, adminValidator, function(req, res, next){
+	var slug = req.params.article;
+	Articles.findOne({slug:slug}, function(err, article){
+		if(err){throw err}
+			res.render('adminArticle', {
+				title: article.title,
+				article: article
+			});
+	});
+});
+
+
+router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, adminValidator, function(req, res, next){
+	var author = req.body.author
+	var comment = req.body.comment
+	var slug = req.params.article;
+	console.log('Author:' + author)
+	console.log('Comment:' + comment)
+	console.log('Slug:' + slug)
+	Article.findOne({$and:[{comment:[{commentAuthor:author}]}, {slug:slug}, {comment:[{articleComment:comment}]}]}, function(err, article){
+		if(err){throw err}
+			// article.comment.findOneAndRemove(
+			// 	{$and:[{comment:[{commentAuthor:author}]}, 
+			// 	{slug:slug}, 
+			// 	{comment:[{articleComment:comment}]}]
+			// });
+			req.flash("info", "Comment removed");
+		res.redirect('/adminSearchArticle/'+ slug +'')
+	});
+
+})
 module.exports = router;
+
