@@ -185,20 +185,11 @@ router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, ad
 	var author = req.body.author
 	var comment = req.body.comment
 	var slug = req.params.article;
-	console.log('Author:' + author)
-	console.log('Comment:' + comment)
-	console.log('Slug:' + slug)
-	Article.findOne({$and:[{comment:[{commentAuthor:author}]}, {slug:slug}, {comment:[{articleComment:comment}]}]}, function(err, article){
+	Articles.update({slug:slug}, {$pull:{comment:{articleComment:comment, commentAuthor:author}}}, function(err, article){
 		if(err){throw err}
-			// article.comment.findOneAndRemove(
-			// 	{$and:[{comment:[{commentAuthor:author}]}, 
-			// 	{slug:slug}, 
-			// 	{comment:[{articleComment:comment}]}]
-			// });
-			req.flash("info", "Comment removed");
-		res.redirect('/adminSearchArticle/'+ slug +'')
 	});
-
+		req.flash("info", "Comment removed");
+		res.redirect('/adminSearchArticle/'+ slug +'')
 })
 module.exports = router;
 

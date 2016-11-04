@@ -17,7 +17,7 @@
 	<form action="/adminSearchArticleCommentRemoved/<%= article.slug %>" method="POST">
 	<span>Comment made by:</span><br><input type="text" name="author" value="<%= body.commentAuthor %>" readonly><br>
 	<a href="/admin/<%= body.commentAuthor%>">Go to user</a><br><br>
-	<span>Comment made on: </span><%= body.createdAt %><br><br>
+	<span>Comment made on: </span><br><input type="text" name="date" value="<%= body.createdAt %>" readonly><br><br>
 	<textarea type="text" name="comment" style="height:200px" readonly><%= body.articleComment %></textarea><br>
 	<input type="submit" value="Delete comment"> 
 	</form>

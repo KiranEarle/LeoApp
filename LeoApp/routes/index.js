@@ -10,9 +10,12 @@ router.use(function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
-	res.render('index', {
-		title:'Dashboard'
-	});
+	if(!req.user){
+		res.render('index', {
+			title:'Dashboard'
+		});
+	}
+	res.redirect('/home')
 })
 
 router.get('/home', ensureAuthenticated, function(req, res, next){

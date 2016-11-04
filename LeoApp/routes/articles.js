@@ -124,7 +124,9 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 	Articles.findOne({slug:slug}, function(err, article){
 		if(err){throw err}
 			if(article){
-				newArticle.slug = slug + Math.random() * 9;
+				while(article.slug == newArticle.slug){
+					newArticle.slug = slug + Math.random() * 9;
+				}
 			}
 
 		newArticle.save(function(err, article){
