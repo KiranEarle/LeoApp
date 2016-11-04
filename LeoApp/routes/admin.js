@@ -182,14 +182,38 @@ router.get('/adminSearchArticle/:article',ensureAuthenticated, adminValidator, f
 
 
 router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, adminValidator, function(req, res, next){
-	var author = req.body.author
-	var comment = req.body.comment
+	var author = req.body.author;
+	var comment = req.body.comment;
 	var slug = req.params.article;
 	Articles.update({slug:slug}, {$pull:{comment:{articleComment:comment, commentAuthor:author}}}, function(err, article){
 		if(err){throw err}
 	});
 		req.flash("info", "Comment removed");
 		res.redirect('/adminSearchArticle/'+ slug +'')
-})
+});
+
+
+router.post('/adminArticleRemove/:article', ensureAuthenticated, adminValidator, function(req, res, next){
+	var slug = req.params.article
+	Articles.findOne({slug:slug})
+	.remove(function(err, article){
+		if(err){throw err}
+	});
+
+	req.flash("info", "Article has been deleted")
+	res.redirect('/adminSearchArticle')
+});
+
+router.post('/adminArticleUpdate/:article', ensureAuthenticated, adminValidator, function(req, res, next){
+	var slug = req.params.article;
+	var title = req.body.title;
+	var text = req.body.articleText;
+	Articles.update({slug:slug}, {$set:{title:title, articleText:text}}, function(err, article){
+		if(err){throw err}
+	});
+	req.flash('info','Updated the article');
+	res.redirect('/adminSearchArticle/' + slug + '');
+
+});
 module.exports = router;
 

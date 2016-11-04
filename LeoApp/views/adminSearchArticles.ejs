@@ -22,7 +22,7 @@
 	<% articles.forEach(function(article){ %>
 		    <tr>
         		<td><%= article.title %></td>
-        		<td><%= article.author %></td>
+        		<td><a href="/admin/<%= article.author %>"><%= article.author %></td>
         		<td><%= article.createdAt %></td>
         		<td><%= article.comment.length %></td>
         		<td><a href="/adminSearchArticle/<%= article.slug %>">View</a></td>
