@@ -2,6 +2,7 @@
 <a href="/articles"><<- Back to articles</a><br>
 
 
+
 <% article.forEach(function(body){ %>
 	<h1><%= body.title %></h1>
 	<%if (currentUser){%>
@@ -10,8 +11,13 @@
 	<p>
 		<span class="haze">Created on: <%= body.createdAt %></span><br>
 		<span class="haze">Author: <%= body.author %></span><br>
-		<p><%= body.articleText %></p><br><br>
+		<p><%= body.articleText %></p><br>
 
+<% if(currentUser){ %>
+	<% if(currentUser.username == body.author){ %>
+		<a href="/editArticle/<%= body.slug %>/<%= body.author %>">Edit article</a><br>
+	<% } %>
+<% } %>
 
 	</p>
 
@@ -37,7 +43,6 @@
 <% } %>
 
 <% }) %><br><br>
-
 
 
 <a href="/articles"><<- Back to articles</a><br><br>

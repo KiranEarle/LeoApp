@@ -83,13 +83,43 @@ router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 	Articles.find({author:user})
 	.exec(function(err, articles){
 		if(err){throw err}
-			console.log(articles)
 			res.render('articles',{
 				title:'My articles',
 				articles:articles
 			});
 	});
 });
+
+router.get('/editArticle/:article/:user', ensureAuthenticated, function(req, res, next){
+	var slug = req.params.article;
+	var user = req.params.user;
+	if(!user == req.user){
+		res.redirect('/articles')
+	}
+	Articles.findOne({slug:slug, author:user}, function(err, article){
+		if(err){throw err}
+		res.render('editArticle', {
+			title:'Edit Article',
+			article:article
+		});
+	});
+});
+
+router.post('/editArticle/:article/:user', ensureAuthenticated, function(req, res, next){
+	var slug = req.params.article;
+	var user = req.params.user;
+	var title = req.body.title;
+	var articleText = req.body.articleText
+	console.log(title)
+	console.log(articleText)
+	Articles.update({slug:slug}, {$set:{title:title, articleText:articleText}}, function(err, article){
+		if(err){throw err}
+	})
+	req.flash('info','Updated the article');
+	res.redirect('/editArticle/'+ slug +'/'+ user +'')
+})
+
+
 router.get('/newArticle',ensureAuthenticated, function(req, res, next){
 	res.render('newArticles', {
 		title:'Post Article'
