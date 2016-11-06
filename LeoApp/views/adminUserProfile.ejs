@@ -19,6 +19,15 @@
 			<input type="submit" value="update">
 		</form>
 
+		<% if(user.level == "user"){ %>
+			<form action="/approveUser/<%= user.username %>" method="POST">
+				<input type="submit" value="Apporve User">
+			</form><br>
+		<% } else if(user.level == "approved") { %>
+			<form action="/unapproveUser/<%= user.username %>" method="POST">
+				<input type="submit" value="Unapporve User">
+			</form>
+		<% } %>
 
 		<% if (user.status == "active") {%>
 		<form action="/adminDeactivate/<%=user.username%>" method="POST">

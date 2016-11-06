@@ -9,7 +9,8 @@ var userSchema = mongoose.Schema({
 	password: {type:String, required:true},
 	createAt: {type:Date, default:Date.now},
 	isAdmin: {type:Boolean},
-	status: {type:String}
+	status: {type:String},
+	level: {type:String}
 });
 
 

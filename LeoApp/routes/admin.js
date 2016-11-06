@@ -88,7 +88,6 @@ router.post('/admin/:user',ensureAuthenticated, adminValidator, function(req, re
 	var email = req.body.email;
 	var password = req.body.password;
 	var confrimPW = req.body.confirmPW;
-	var isAdmin = req.body.adminCheck;
 
 	req.checkBody('confirmPW', 'Please make sure your password matches').equals(req.body.password);
 
@@ -154,6 +153,33 @@ router.post('/adminActivate/:user', function(req, res, next){
 		res.redirect("/admin/"+ username +"");
 });
 
+router.post('/approveUser/:username', function(req, res, next){
+	var username = req.params.username;
+	var approved = "approved";
+
+	User.findOne({username:username}, function(err, user){
+		if(err){throw err}
+		user.level = approved;
+		user.save();
+	});
+
+	req.flash("info", "User is apporved");
+	res.redirect("/admin/"+ username +"");
+});
+
+router.post('/unapproveUser/:username', function(req, res, next){
+	var username = req.params.username;
+	var userLevel = "user";
+
+	User.findOne({username:username}, function(err, user){
+		if(err){throw err}
+		user.level = userLevel;
+		user.save();
+	});
+
+	req.flash("info", "User has been unapporved");
+	res.redirect("/admin/"+ username +"");
+});
 
 router.get('/adminSearchArticle',ensureAuthenticated, adminValidator, function(req, res, next){
 	
@@ -215,5 +241,28 @@ router.post('/adminArticleUpdate/:article', ensureAuthenticated, adminValidator,
 	res.redirect('/adminSearchArticle/' + slug + '');
 
 });
+
+router.post('/approveArticle/:article', function(req, res, next){
+	var slug = req.params.article;
+
+	Articles.update({slug:slug},{$set:{status:"Posted"}}, function(err, article){
+		if(err){throw err}
+	});
+
+	req.flash("info", "Article has been approved and posted");
+	res.redirect("/adminSearchArticle/"+ slug +"");
+});
+
+router.post('/unapproveArticle/:article', function(req, res, next){
+	var slug = req.params.article;
+
+	Articles.update({slug:slug},{$set:{status:"for_Review"}}, function(err, article){
+		if(err){throw err}
+	});
+
+	req.flash("info", "Article has been set to review and has not been posted");
+	res.redirect("/adminSearchArticle/"+ slug +"");
+});
+
 module.exports = router;
 

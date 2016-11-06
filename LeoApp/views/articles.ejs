@@ -4,7 +4,9 @@
 <% } %>
 
 <div class="list-of-post">
+
 <% articles.forEach(function(article){ %>
+<% if(article.status == "Posted" ){ %>
 <div class="post">
 	<h2><a href="/articles/<%= article.slug %>"><%= article.title %></a></h2>
 	<p>
@@ -23,6 +25,7 @@
 		<hr>
 	</p>
 </div>
+<% } %>
 <% }) %>
 </div>
 

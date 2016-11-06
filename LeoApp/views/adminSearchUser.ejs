@@ -15,6 +15,7 @@
 		<th>Name</th>
 		<th>Email</th>
 		<th>Status</th>
+		<th>Level</th>
 		<th>View Profile</th>
 		</tr>
 		</thread>
@@ -24,6 +25,7 @@
         		<td><%= user.username %></td>
         		<td><%= user.name %></td>
         		<td><%= user.email %></td>
+        		<td><%= user.level %></td>
         		<td><%= user.status %></td>
         		<td><a href="/admin/<%= user.username %>">View</a></td>
       		</tr>

@@ -10,6 +10,7 @@ var articleSchema = mongoose.Schema({
 	author: {type:String},
 	createdAt: {type:Date},
 	updated: {type:Date, default: Date.now},
+	status: {type:String},
 	comment:[
 				{
 				articleComment: {type:String},

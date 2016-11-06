@@ -33,12 +33,16 @@ router.get('/articles/:articleTitle', function(req, res, next){
 	Articles.find({slug:slug}) 
 	.exec(function(err, article){
 		if(err){throw err}
-
+		if(!article.status == "Posted"){
+			res.redirect('/articles');
+		} else {
 		res.render('oneArticle',{
 			title:article.title,
 			article:article
-		});	
+		});
+		}	
 	});
+
 });
 
 router.post('/articles/:articleTitle', function(req, res, next){
@@ -110,8 +114,6 @@ router.post('/editArticle/:article/:user', ensureAuthenticated, function(req, re
 	var user = req.params.user;
 	var title = req.body.title;
 	var articleText = req.body.articleText
-	console.log(title)
-	console.log(articleText)
 	Articles.update({slug:slug}, {$set:{title:title, articleText:articleText}}, function(err, article){
 		if(err){throw err}
 	})
@@ -148,7 +150,8 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 			articleText: text,
 			slug: slug,
 			author: username,
-			createdAt: Date.now()
+			createdAt: Date.now(),
+			status: "for_Review"
 		});
 
 	Articles.findOne({slug:slug}, function(err, article){
@@ -158,6 +161,9 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 					newArticle.slug = slug + Math.random() * 9;
 				}
 			}
+		if(req.user.level == "approved"){
+			newArticle.status = "Posted"
+		}
 
 		newArticle.save(function(err, article){
 			if (err){throw err}

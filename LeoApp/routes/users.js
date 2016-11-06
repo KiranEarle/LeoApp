@@ -45,7 +45,8 @@ router.post('/signup', function(req, res, next){
 			password: password,
 			createAt: Date.now(),
 			isAdmin: false,
-			status: "active"
+			status: "active",
+			level: "user"
 		});
 		User.findOne({$or:[{username: newUser.username},{email:newUser.email}]}, function(err, user){
 			if(err){ return next(err)}
