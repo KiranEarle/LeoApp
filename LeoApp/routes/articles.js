@@ -12,6 +12,19 @@ router.use(function(req, res, next){
 	next();
 });
 
+function articleApproved(req, res, next){
+	var slug = req.params.articleTitle;
+	Articles.findOne({slug:slug}, function(err, article){
+		if(article.status == "Posted"){
+			next();			
+		} else {
+			res.redirect('/articles');
+
+		}
+		
+	})
+}
+
 router.get('/articles', function(req, res, next){
 
 	Articles.find()
@@ -27,20 +40,16 @@ router.get('/articles', function(req, res, next){
 });
 
 
-router.get('/articles/:articleTitle', function(req, res, next){
+router.get('/articles/:articleTitle', articleApproved, function(req, res, next){
 	var slug = req.params.articleTitle;
 
 	Articles.find({slug:slug}) 
 	.exec(function(err, article){
 		if(err){throw err}
-		if(!article.status == "Posted"){
-			res.redirect('/articles');
-		} else {
 		res.render('oneArticle',{
 			title:article.title,
 			article:article
 		});
-		}	
 	});
 
 });
