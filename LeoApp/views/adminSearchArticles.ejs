@@ -7,6 +7,41 @@
 </form>
 </div><br>
 
+
+<div class="container">
+	<table class="table">
+		<thread>
+		<tr>
+		<th>Article</th>
+		<th>Author</th>
+		<th>Date Created</th>
+		<th>Comments</th>
+		<th>Status</th>
+		<th>View Article</th>
+		</tr>
+		</thread>
+		<tbody>
+	<% articles.forEach(function(article){ %>
+	<% if(article.status == "for_Review"){ %>
+		    <tr>
+        		<td><%= article.title %></td>
+        		<td><a href="/admin/<%= article.author %>"><%= article.author %></td>
+        		<td><%= article.createdAt %></td>
+        		<td><%= article.comment.length %></td>
+        		<% if(article.status == "for_Review"){%>
+        		<td style="color:red;">For Review</td>
+        		<%} else {%>
+        		<td style="color:green;">Posted</td>
+        		<% } %>
+        		<td><a href="/adminSearchArticle/<%= article.slug %>">View</a></td>
+      		</tr>
+      			<% } %>
+    <% }) %>
+		</tbody>
+	</table>
+	</div><br>
+
+
 <div class="container">
 	<table class="table">
 		<thread>
