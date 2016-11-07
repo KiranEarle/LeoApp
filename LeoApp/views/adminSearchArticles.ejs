@@ -26,7 +26,11 @@
         		<td><a href="/admin/<%= article.author %>"><%= article.author %></td>
         		<td><%= article.createdAt %></td>
         		<td><%= article.comment.length %></td>
-        		<td><%= article.status %></td>
+        		<% if(article.status == "for_Review"){%>
+        		<td style="color:red;">For Review</td>
+        		<%} else {%>
+        		<td style="color:green;">Posted</td>
+        		<% } %>
         		<td><a href="/adminSearchArticle/<%= article.slug %>">View</a></td>
       		</tr>
     <% }) %>
