@@ -4,7 +4,7 @@ var	passport = require('passport');
 var Articles = require('../models/articles.js');
 
 var nodemailer = require('nodemailer');
-var mailer = nodemailer.createTransport('smtps://earlekiran%40gmail.com:Myleskusume1@smtp.gmail.com')
+var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -13,7 +13,7 @@ router.use(function(req, res, next){
 
 router.get('/email', function(req, res, next){
 	mailer.sendMail({
-		from:'earlekiran@gmail.com',
+		from:'lionbrandtv@gmail.com',
 		to:'k_b_e@hotmail.co.uk',
 		subject: 'Leo Test',
 		html:'<p>Success</p>'
