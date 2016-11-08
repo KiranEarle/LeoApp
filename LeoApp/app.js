@@ -7,6 +7,7 @@ var passport = require("passport");
 var session = require("express-session");
 var flash = require("connect-flash");
 var expressValidator = require("express-validator");
+var nodemailer = require('nodemailer')
 
 var routes = require("./routes/index");
 var users = require("./routes/users");

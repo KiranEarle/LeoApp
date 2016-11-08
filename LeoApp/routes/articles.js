@@ -3,11 +3,35 @@ var	router = express.Router();
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
 
+var nodemailer = require('nodemailer');
+var mailer = nodemailer.createTransport({
+	service: 'Mailgun',
+	auth:{
+		user: 'postmaster@admin.lionbrand.com',
+		password: '7e871c72940fe9b9680c751efff9d8f7'
+	}
+
+})
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
 	next();
 });
+
+router.get('/email', function(req, res, next){
+	mailer.sendMail({
+		from:'postmaster@sandboxd9dae796449440cc973050b13d9ea505.mailgun.org',
+		to:'k_b_e@hotmail.co.uk',
+		subject: 'Leo Test',
+		html:'<p>Success</p>'
+	}, function(err, response){
+		if(err){
+			res.send("bad email");
+			console.log(err)
+		}
+		res.send("good email")
+	})
+})
 
 function articleApproved(req, res, next){
 	var slug = req.params.articleTitle;
@@ -16,10 +40,8 @@ function articleApproved(req, res, next){
 			next();			
 		} else {
 			res.redirect('/articles');
-
 		}
-		
-	})
+	});
 }
 
 
