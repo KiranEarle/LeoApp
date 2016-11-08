@@ -2,7 +2,7 @@ var express = require('express');
 var	router = express.Router();
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
-
+var hbs = require('nodemailer-express-handlebars')
 var nodemailer = require('nodemailer');
 var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
 
@@ -11,19 +11,13 @@ router.use(function(req, res, next){
 	next();
 });
 
+mailer.use('compile', hbs({
+	viewPath: 'views/email',
+	extName: '.hbs'
+}));
+
 router.get('/email', function(req, res, next){
-	mailer.sendMail({
-		from:'lionbrandtv@gmail.com',
-		to:'k_b_e@hotmail.co.uk',
-		subject: 'Leo Test',
-		html:'<p>Success</p>'
-	}, function(err, response){
-		if(err){
-			res.send("bad email");
-			console.log(err)
-		}
-		res.send("good email")
-	})
+	
 })
 
 function articleApproved(req, res, next){
@@ -190,9 +184,25 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 		newArticle.save(function(err, article){
 			if (err){throw err}
 		});
+		mailer.sendMail({
+			from:'lionbrandtv@gmail.com',
+			to:'k_b_e@hotmail.co.uk',
+			subject: 'Leo Test',
+			template:'articleApproval',
+			context:{
+				username: newArticle.author,
+				title: newArticle.title
+			}
+		}, function(err, response){
+			if(err){
+				throw err;
+				console.log(err)
+			}
+			
+		})
 	})
 
-	req.flash('info','Your article has been posted');
+	req.flash('info','You have posted an article for review');
 	res.redirect('/articles');
 	}
 
