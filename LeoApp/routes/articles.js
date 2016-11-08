@@ -4,14 +4,7 @@ var	passport = require('passport');
 var Articles = require('../models/articles.js');
 
 var nodemailer = require('nodemailer');
-var mailer = nodemailer.createTransport({
-	service: 'Mailgun',
-	auth:{
-		user: 'postmaster@admin.lionbrand.com',
-		password: '7e871c72940fe9b9680c751efff9d8f7'
-	}
-
-})
+var mailer = nodemailer.createTransport('smtps://earlekiran%40gmail.com:Myleskusume1@smtp.gmail.com')
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -20,7 +13,7 @@ router.use(function(req, res, next){
 
 router.get('/email', function(req, res, next){
 	mailer.sendMail({
-		from:'postmaster@sandboxd9dae796449440cc973050b13d9ea505.mailgun.org',
+		from:'earlekiran@gmail.com',
 		to:'k_b_e@hotmail.co.uk',
 		subject: 'Leo Test',
 		html:'<p>Success</p>'
