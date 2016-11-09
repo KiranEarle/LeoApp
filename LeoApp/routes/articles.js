@@ -6,6 +6,8 @@ var hbs = require('nodemailer-express-handlebars')
 var nodemailer = require('nodemailer');
 var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
 var Searches = require('../libraries/searches.js')
+var multer = require('multer');
+var upload = multer({dest: 'articleImages/'})
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -139,7 +141,7 @@ router.get('/newArticle',ensureAuthenticated, function(req, res, next){
 	});
 });
 
-router.post('/newArticle', ensureAuthenticated, function(req, res, next){
+router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), function(req, res, next){
 	var title = req.body.title;
 	var text = req.body.text;
 	var username = req.user.username;
