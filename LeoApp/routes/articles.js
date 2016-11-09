@@ -33,7 +33,7 @@ mailer.use('compile', hbs({
 
 function articleApproved(req, res, next){
 	var slug = req.params.articleTitle;
-	Articles.findOne({slug:slug}, function(err, article){
+	Searches.articleBySlug(slug, function(err, article){
 		if(article.status == "Posted"){
 			next();			
 		} else {

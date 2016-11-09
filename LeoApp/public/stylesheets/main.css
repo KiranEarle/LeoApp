@@ -41,7 +41,10 @@ form textarea{
 .header ul li a:hover{
 	color: #000;
 }
-
+.header-title{
+	text-align: center;
+	padding-top: 250px;
+}
 .title-image-article{
 	height: 50px;
 }
