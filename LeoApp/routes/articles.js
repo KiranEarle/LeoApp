@@ -7,7 +7,19 @@ var nodemailer = require('nodemailer');
 var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
 var Searches = require('../libraries/searches.js')
 var multer = require('multer');
-var upload = multer({dest: 'articleImages/'})
+var crypto = require('crypto');
+var path = require('path');
+
+var storage = multer.diskStorage({
+	destination: 'articleImages/',
+	filename: function(req, file, callback){
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			callback(null, raw.toString('hex') + path.extname(file.originalname));
+		});
+	}
+
+});
+var upload = multer({storage: storage})
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -21,7 +33,7 @@ mailer.use('compile', hbs({
 
 function articleApproved(req, res, next){
 	var slug = req.params.articleTitle;
-	Searches.articleBySlug(slug, function(err, article){
+	Articles.findOne({slug:slug}, function(err, article){
 		if(article.status == "Posted"){
 			next();			
 		} else {
@@ -145,10 +157,10 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 	var title = req.body.title;
 	var text = req.body.text;
 	var username = req.user.username;
+	var headerImage = req.file.filename
 	var slug = req.user.username +'_'+ req.body.title.replace(/\s/g,'')
 	req.checkBody('title','Please enter a title').notEmpty();
 	req.checkBody('text','Please enter some text').notEmpty();
-
 	var errors = req.validationErrors();
 
 	if(errors){
@@ -164,7 +176,8 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 			slug: slug,
 			author: username,
 			createdAt: Date.now(),
-			status: "for_Review"
+			status: "for_Review",
+			headerImg: headerImage
 		});
 
 	Searches.articleBySlug(slug, function(err, article){

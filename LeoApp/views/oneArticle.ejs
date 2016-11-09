@@ -4,7 +4,7 @@
 
 
 <% article.forEach(function(body){ %>
-	<h1><%= body.title %></h1>
+	<h1 style="background-image: url('/<%= body.headerImg %>');"><%= body.title %></h1>
 	<%if (currentUser){%>
 	<a href="/article/<%= currentUser.username %>">My Articles</a><br><br>
 <% } %>

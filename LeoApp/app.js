@@ -9,6 +9,7 @@ var flash = require("connect-flash");
 var expressValidator = require("express-validator");
 var nodemailer = require('nodemailer')
 var multer = require('multer');
+var crypto = require('crypto'); 
 
 var routes = require("./routes/index");
 var users = require("./routes/users");
@@ -28,6 +29,7 @@ app.set("port", process.env.PORT || 3000);
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
+app.use(express.static(__dirname + '/articleImages'));
 
 
 app.use(cookieParser());

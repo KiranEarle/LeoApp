@@ -10,6 +10,7 @@ var articleSchema = mongoose.Schema({
 	createdAt: {type:Date},
 	updated: {type:Date, default: Date.now},
 	status: {type:String},
+	headerImg : {type:String},
 	comment:[
 				{
 				articleComment: {type:String},
