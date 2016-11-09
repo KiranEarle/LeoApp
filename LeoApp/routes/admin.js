@@ -3,6 +3,7 @@ var router = express.Router();
 var User = require('../models/user.js');
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
+var Searches = require('../libraries/searches.js')
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -183,11 +184,8 @@ router.post('/unapproveUser/:username', function(req, res, next){
 
 router.get('/adminSearchArticle',ensureAuthenticated, adminValidator, function(req, res, next){
 	
-	Articles.find()
-	.sort({createdAt:"descending"})
-	.exec(function(err, articles){
+	Searches.articles(function(err, articles){
 		if(err){throw err}
-
 		res.render('adminSearchArticles', {
 			title: 'Article Search',
 			articles:articles
@@ -197,7 +195,7 @@ router.get('/adminSearchArticle',ensureAuthenticated, adminValidator, function(r
 
 router.get('/adminSearchArticle/:article',ensureAuthenticated, adminValidator, function(req, res, next){
 	var slug = req.params.article;
-	Articles.findOne({slug:slug}, function(err, article){
+	Searches.articleBySlug(slug, function(err, article){
 		if(err){throw err}
 			res.render('adminArticle', {
 				title: article.title,

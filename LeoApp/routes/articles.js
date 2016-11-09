@@ -5,6 +5,7 @@ var Articles = require('../models/articles.js');
 var hbs = require('nodemailer-express-handlebars')
 var nodemailer = require('nodemailer');
 var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
+var Searches = require('../libraries/searches.js')
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -16,13 +17,9 @@ mailer.use('compile', hbs({
 	extName: '.hbs'
 }));
 
-router.get('/email', function(req, res, next){
-	
-})
-
 function articleApproved(req, res, next){
 	var slug = req.params.articleTitle;
-	Articles.findOne({slug:slug}, function(err, article){
+	Searches.articleBySlug(slug, function(err, article){
 		if(article.status == "Posted"){
 			next();			
 		} else {
@@ -32,13 +29,9 @@ function articleApproved(req, res, next){
 }
 
 
-router.get('/articles', function(req, res, next){
-
-	Articles.find()
-	.sort({createdAt: 'descending'})
-	.exec(function(err, articles){
+router.get('/articles',  function(req, res, next){
+	Searches.articles(function(err, articles){
 		if(err){throw err;}
-
 	res.render('articles', {
 		title:'Articles',
 		articles:articles,
@@ -74,7 +67,7 @@ router.post('/articles/:articleTitle', function(req, res, next){
 			errors:errors
 			})
 		} else {
-	Articles.findOne({slug:slug}, function(err, article){
+	Searches.articleBySlug(slug, function(err, article){
 		if(err){throw err}
 			article.comment.push({
 				articleComment:comment,
@@ -99,7 +92,9 @@ function ensureAuthenticated(req, res, next){
 
 router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 	var user = req.params.user;
-
+	if(!req.user){
+		res.redirect('/articles')
+	}
 	Articles.find({author:user})
 	.exec(function(err, articles){
 		if(err){throw err}
@@ -170,7 +165,7 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 			status: "for_Review"
 		});
 
-	Articles.findOne({slug:slug}, function(err, article){
+	Searches.articleBySlug(slug, function(err, article){
 		if(err){throw err}
 			if(article){
 				while(article.slug == newArticle.slug){
@@ -186,7 +181,7 @@ router.post('/newArticle', ensureAuthenticated, function(req, res, next){
 		});
 		mailer.sendMail({
 			from:'lionbrandtv@gmail.com',
-			to:'k_b_e@hotmail.co.uk',
+			to:'lionbrandtv@gmail.com',
 			subject: 'Leo Test',
 			template:'articleApproval',
 			context:{
