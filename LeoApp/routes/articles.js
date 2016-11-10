@@ -19,7 +19,7 @@ var storage = multer.diskStorage({
 	}
 
 });
-var upload = multer({storage: storage})
+var upload = multer({storage: storage});
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -157,7 +157,7 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 	var title = req.body.title;
 	var text = req.body.text;
 	var username = req.user.username;
-	var headerImage = req.file.filename
+	var headerImage = req.file.filename;
 	var slug = req.user.username +'_'+ req.body.title.replace(/\s/g,'')
 	req.checkBody('title','Please enter a title').notEmpty();
 	req.checkBody('text','Please enter some text').notEmpty();
@@ -190,6 +190,7 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 		if(req.user.level == "approved"){
 			newArticle.status = "Posted"
 		}
+
 
 		newArticle.save(function(err, article){
 			if (err){throw err}

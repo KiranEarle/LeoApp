@@ -3,10 +3,12 @@
 	<a href="/article/<%= currentUser.username %>">My Articles</a>
 
 
-<form action="/newArticle" method="POST" enctype="multipart/form-data">
+<form  id="headerUpload" action="/newArticle" method="POST" enctype="multipart/form-data">
 	<input type="text" name="title" placeholder="Title" autofocus><br>
 	<textarea class="article-text-area" type="text" name="text" placeholder="Article text"></textarea><br>
-	<input type="file" name="articleHeader"><br>
+	<label for="type-1">
+	<input type="file" name="articleHeader" required="Please add a header image to post article"><br>
+	</label>
 	<input type="submit" value="Post">
 </form>
 <% } %>

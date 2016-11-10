@@ -9,7 +9,7 @@
 <% articles.forEach(function(article){ %>
 <% if(article.status == "Posted" ){ %>
 
-<div class="post col-md-4 articleWidget">
+<div class="post col-md-4 offset-md-4 articleWidget">
 	<div class="articleWidgetHeader" style="background-image:url(/<%= article.headerImg %>);">
 	<h2><a href="/articles/<%= article.slug %>"><%= article.title %></a></h2>
 	</div>

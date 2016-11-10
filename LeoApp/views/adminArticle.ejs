@@ -10,6 +10,8 @@
 <form action="/adminArticleUpdate/<%= article.slug %>" method="POST">
 	<span>Title:</span><br>
 	<input type="text" name="title" value="<%= article.title %>"><br><br>
+	<span>Header Image:</span><br>
+	<img style="height:100px" src="/<%= article.headerImg %>"/><br><br>
 	<span>Article text:</span><br>
 	<textarea type="text" name="articleText" style="height:200px; width:700px"><%= article.articleText %></textarea><br>
 	<input type="submit" value="Update article">

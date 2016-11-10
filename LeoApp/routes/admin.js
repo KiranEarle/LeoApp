@@ -4,6 +4,7 @@ var User = require('../models/user.js');
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
 var Searches = require('../libraries/searches.js')
+var fs = require('fs');
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -219,11 +220,18 @@ router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, ad
 
 router.post('/adminArticleRemove/:article', ensureAuthenticated, adminValidator, function(req, res, next){
 	var slug = req.params.article
-	Articles.findOne({slug:slug})
-	.remove(function(err, article){
-		if(err){throw err}
+	Articles.findOne({slug:slug}, function(err, article){
+		fs.exists('./articleImages/' + article.headerImg, function(exists){
+		if(!exists){
+				next();
+		} else {
+			fs.unlinkSync('./articleImages/' + article.headerImg)
+		}
 	});
-
+		article.remove(function(err, article){
+			if(err){throw err}
+		});
+	});
 	req.flash("info", "Article has been deleted")
 	res.redirect('/adminSearchArticle')
 });

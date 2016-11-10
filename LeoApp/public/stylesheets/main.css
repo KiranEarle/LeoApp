@@ -32,6 +32,7 @@ form textarea{
 }
 .header{
 	background-image: url('../images/Lion.jpg');
+	background-size: cover;
 	text-decoration: none;
 	color: white;
 }
@@ -47,7 +48,7 @@ form textarea{
 	font-size: 150px;
 }
 .articleWidget{
-
+	height: 550px;
 }
 .articleWidgetHeader{
 	border-top-left-radius: 25px;

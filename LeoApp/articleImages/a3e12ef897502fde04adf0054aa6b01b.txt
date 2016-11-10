@@ -1,0 +1,152 @@
+Afghanistan|Afghanistan
+Algeria|Algeria
+Angola|Angola
+Anguilla|Anguilla
+Antarctica|Antarctica
+Antigua|Antigua
+Argentina|Argentina
+Armenia|Armenia
+Aruba|Aruba
+Australia|Australia
+Austria|Austria
+Azerbaijan|Azerbaijan
+Bahamas|Bahamas
+Bahrain|Bahrain
+Bangladesh|Bangladesh
+Barbados|Barbados
+Belgium|Belgium
+Belize|Belize
+Bermuda|Bermuda
+Bolivia|Bolivia
+Botswana|Botswana
+Brazil|Brazil
+Bulgaria|Bulgaria
+Burundi|Burundi
+Cambodia|Cambodia
+Cameroon|Cameroon
+Canada|Canada
+Cayman Islands|Cayman Islands
+Central African Republic|Central African Republic
+Chad|Chad
+Chile|Chile
+China|China
+Colombia|Colombia
+Congo|Congo
+Congo Dem Rep Of|Congo, Dem. Rep. Of
+Costa Rica|Costa Rica
+Cote D Ivoire|Cote D'Ivoire
+Croatia|Croatia
+Cuba|Cuba
+Cyprus|Cyprus
+Czech Republic|Czech Republic
+Denmark|Denmark
+Dominica|Dominica
+Dominican Republic|Dominican Republic
+Ecuador|Ecuador
+Egypt|Egypt
+El Salvador|El Salvador
+Equatorial Guinea|Equatorial Guinea
+Ethiopia|Ethiopia
+Finland|Finland
+France|France
+France Metropolitan|France Metropolitan
+French Polynesia|French Polynesia
+Gabon|Gabon
+Georgia|Georgia
+Germany|Germany
+Ghana|Ghana
+Greece|Greece
+Guadeloupe|Guadeloupe
+Guam|Guam
+Guatemala|Guatemala
+Guyana|Guyana
+Honduras|Honduras
+Hong Kong|Hong Kong
+Hungary|Hungary
+India|India
+Indonesia|Indonesia
+Iran|Iran
+Iraq|Iraq
+Ireland|Ireland
+Israel|Israel
+Italy|Italy
+Jamaica|Jamaica
+Japan|Japan
+Jordan|Jordan
+Kazakhstan|Kazakhstan
+Kenya|Kenya
+Korea|Korea
+Kuwait|Kuwait
+Kyrgyzstan|Kyrgyzstan
+Latvia|Latvia
+Lebanon|Lebanon
+Libya|Libya
+Luxembourg|Luxembourg
+Macau|Macau
+Malaysia|Malaysia
+Mali|Mali
+Malta|Malta
+Martinique|Martinique
+Mauritius|Mauritius
+Mexico|Mexico
+Monaco|Monaco
+Mongolia|Mongolia
+Morocco|Morocco
+Mozambique|Mozambique
+Myanmar|Myanmar
+Netherlands|Netherlands
+New Caledonia|New Caledonia
+New Zealand|New Zealand
+Nicaragua|Nicaragua
+Niger|Niger
+Nigeria|Nigeria
+Norway|Norway
+Pakistan|Pakistan
+Panama|Panama
+Papua New Guinea|Papua New Guinea
+Peru|Peru
+Philippines|Philippines
+Poland|Poland
+Portugal|Portugal
+Puerto Rico|Puerto Rico
+Qatar|Qatar
+Reunion|Reunion
+Romania|Romania
+Russian Federation|Russian Federation
+Rwanda|Rwanda
+Saint Kitts And Nevis|Saint Kitts And Nevis
+Saudi Arabia|Saudi Arabia
+Senegal|Senegal
+Serbia And Montenegro|Serbia And Montenegro
+Sierra Leone|Sierra Leone
+Singapore|Singapore
+Slovakia|Slovakia
+Slovenia|Slovenia
+South Africa|South Africa
+Spain|Spain
+Sri Lanka|Sri Lanka
+Sudan|Sudan
+Swaziland|Swaziland
+Sweden|Sweden
+Switzerland|Switzerland
+Taiwan|Taiwan
+Tajikistan|Tajikistan
+Tanzania|Tanzania
+Thailand|Thailand
+Trinidad And Tobago|Trinidad And Tobago
+Tunisia|Tunisia
+Turkey|Turkey
+Turkmenistan|Turkmenistan
+Uganda|Uganda
+Ukraine|Ukraine
+United Arab Emirates|United Arab Emirates
+United Kingdom|United Kingdom
+United States|United States
+Unknown|Unknown
+Uruguay|Uruguay
+Uzbekistan|Uzbekistan
+Venezuela|Venezuela
+Vietnam|Vietnam
+Virgin Islands US|Virgin Islands (U.S.)
+Yugoslavia|Yugoslavia
+Zambia|Zambia
