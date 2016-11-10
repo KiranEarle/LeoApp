@@ -4,11 +4,15 @@
 <% } %>
 
 <div class="list-of-post">
-
+<div class="container">
+<div class="row">
 <% articles.forEach(function(article){ %>
 <% if(article.status == "Posted" ){ %>
-<div class="post">
+
+<div class="post col-md-4 articleWidget">
+	<div class="articleWidgetHeader" style="background-image:url(/<%= article.headerImg %>);">
 	<h2><a href="/articles/<%= article.slug %>"><%= article.title %></a></h2>
+	</div>
 	<p>
 		<span class="haze">Created on: <%= article.createdAt %></span><br>
 		<span class="haze">Author: <%= article.author %></span><br>
@@ -28,7 +32,8 @@
 <% } %>
 <% }) %>
 </div>
-
+</div>
+</div>
 <div class="paginations">
 	
 </div>

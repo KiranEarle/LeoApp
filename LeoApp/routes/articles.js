@@ -184,7 +184,7 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 		if(err){throw err}
 			if(article){
 				while(article.slug == newArticle.slug){
-					newArticle.slug = slug + Math.random() * 9;
+					newArticle.slug = slug + Math.floor(Math.random() * 9);
 				}
 			}
 		if(req.user.level == "approved"){

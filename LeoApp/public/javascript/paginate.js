@@ -8,7 +8,7 @@
 
 			var defaults = {
 
-				itemsPerPage : 5
+				itemsPerPage : 6
 
 			};
 
