@@ -210,7 +210,7 @@ router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, ad
 	var author = req.body.author;
 	var comment = req.body.comment;
 	var slug = req.params.article;
-	Articles.update({slug:slug}, {$pull:{comment:{articleComment:comment, commentAuthor:author}}}, function(err, article){
+	Articles.update({_id:slug}, {$pull:{comment:{articleComment:comment, commentAuthor:author}}}, function(err, article){
 		if(err){throw err}
 	});
 		req.flash("info", "Comment removed");
@@ -220,7 +220,7 @@ router.post('/adminSearchArticleCommentRemoved/:article',ensureAuthenticated, ad
 
 router.post('/adminArticleRemove/:article', ensureAuthenticated, adminValidator, function(req, res, next){
 	var slug = req.params.article
-	Articles.findOne({slug:slug}, function(err, article){
+	Articles.findOne({_id:slug}, function(err, article){
 		fs.exists('./articleImages/' + article.headerImg, function(exists){
 		if(!exists){
 				next();
@@ -240,7 +240,7 @@ router.post('/adminArticleUpdate/:article', ensureAuthenticated, adminValidator,
 	var slug = req.params.article;
 	var title = req.body.title;
 	var text = req.body.articleText;
-	Articles.update({slug:slug}, {$set:{title:title, articleText:text}}, function(err, article){
+	Articles.update({_id:slug}, {$set:{title:title, articleText:text}}, function(err, article){
 		if(err){throw err}
 	});
 	req.flash('info','Updated the article');
@@ -251,7 +251,7 @@ router.post('/adminArticleUpdate/:article', ensureAuthenticated, adminValidator,
 router.post('/approveArticle/:article', function(req, res, next){
 	var slug = req.params.article;
 
-	Articles.update({slug:slug},{$set:{status:"Posted"}}, function(err, article){
+	Articles.update({_id:slug},{$set:{status:"Posted"}}, function(err, article){
 		if(err){throw err}
 	});
 
@@ -262,7 +262,7 @@ router.post('/approveArticle/:article', function(req, res, next){
 router.post('/unapproveArticle/:article', function(req, res, next){
 	var slug = req.params.article;
 
-	Articles.update({slug:slug},{$set:{status:"for_Review"}}, function(err, article){
+	Articles.update({_id:slug},{$set:{status:"for_Review"}}, function(err, article){
 		if(err){throw err}
 	});
 

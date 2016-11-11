@@ -7,14 +7,14 @@
    		<span>Most recent articles:</span><br><br>
    <% articles.forEach(function(article){ %>
    <% if(article.status == "Posted") {%>
-   	<h4><a href="/articles/<%= article.slug %>"><%= article.title %></a></h4>
+   	<h4><a href="/articles/<%= article.id %>"><%= article.title %></a></h4>
    	<span class="haze">Created on: <%= article.createdAt %></span><br>
     <span class="haze">Author: <%= article.author %></span><br>
 		<span><%= article.articleText.substring(0, 100)%>...</span><br>
     <% if(!article.comment.length == 0){ %>
     <span class="haze">Comments: <%= article.comment.length %></span><br>
     <% } %>
-		<a href="/articles/<%= article.slug %>">Click here from more</a>
+		<a href="/articles/<%= article.id %>">Click here from more</a>
     <% } %>
    	<% }) %>
    <% } else { %>

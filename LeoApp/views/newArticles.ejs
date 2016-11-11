@@ -6,9 +6,9 @@
 <form  id="headerUpload" action="/newArticle" method="POST" enctype="multipart/form-data">
 	<input type="text" name="title" placeholder="Title" autofocus><br>
 	<textarea class="article-text-area" type="text" name="text" placeholder="Article text"></textarea><br>
-	<label for="type-1">
-	<input type="file" name="articleHeader" required="Please add a header image to post article"><br>
-	</label>
+	<label for="field">Required, only .png, .jpg and .gif files allowed: </label><br>
+	<input type="file" id="field" name="articleHeader" required="Please add a header image to post article"><br>
+
 	<input type="submit" value="Post">
 </form>
 <% } %>

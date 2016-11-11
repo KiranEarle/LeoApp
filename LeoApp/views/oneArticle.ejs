@@ -17,14 +17,14 @@
 
 <% if(currentUser){ %>
 	<% if(currentUser.username == body.author){ %>
-		<a href="/editArticle/<%= body.slug %>/<%= body.author %>">Edit article</a><br>
+		<a href="/editArticle/<%= body.id %>">Edit article</a><br>
 	<% } %>
 <% } %>
 
 	</p>
 
 <% if (currentUser) {%>
-	<form action="/articles/<%= body.slug %>" method="POST">
+	<form action="/articles/<%= body.id %>" method="POST">
 		<textarea type="text" name="comment" placeholder="Comment" required></textarea><br>
 		<input type="submit" value="Post">
 	</form><br>

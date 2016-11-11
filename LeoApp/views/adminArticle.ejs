@@ -7,7 +7,7 @@
 <span>Created: <%= article.createdAt %></span><br>
 <span>Comments: <%= article.comment.length %></span><br>
 </p>
-<form action="/adminArticleUpdate/<%= article.slug %>" method="POST">
+<form action="/adminArticleUpdate/<%= article.id %>" method="POST">
 	<span>Title:</span><br>
 	<input type="text" name="title" value="<%= article.title %>"><br><br>
 	<span>Header Image:</span><br>
@@ -17,22 +17,22 @@
 	<input type="submit" value="Update article">
 </form><br><br>
 	<% if(article.status == "for_Review"){ %>
-		<form action="/approveArticle/<%= article.slug %>" method="POST">
+		<form action="/approveArticle/<%= article.id %>" method="POST">
 			<input type="submit" value="Approve Post">
 		</form>
 	<% } else { %>
-		<form action="/unapproveArticle/<%= article.slug %>" method="POST">
+		<form action="/unapproveArticle/<%= article.id %>" method="POST">
 			<input type="submit" value="Review Post">
 		</form>
 	<% } %>
-	<form action="/adminArticleRemove/<%= article.slug %>" method="POST">
+	<form action="/adminArticleRemove/<%= article.id %>" method="POST">
 		<input type="submit" value="Delete Article">
 	</form>
 
 <p>
 <h3>Comments:</h3>
 <% article.comment.forEach(function(body){ %>
-	<form action="/adminSearchArticleCommentRemoved/<%= article.slug %>" method="POST">
+	<form action="/adminSearchArticleCommentRemoved/<%= article.id %>" method="POST">
 	<span>Comment made by:</span><br><input type="text" name="author" value="<%= body.commentAuthor %>" readonly><br>
 	<a href="/admin/<%= body.commentAuthor%>">Go to user</a><br><br>
 	<span>Comment made on: </span><br><input type="text" name="date" value="<%= body.createdAt %>" readonly><br><br>

@@ -9,7 +9,6 @@ var Searches = require('../libraries/searches.js')
 var multer = require('multer');
 var crypto = require('crypto');
 var path = require('path');
-
 var storage = multer.diskStorage({
 	destination: 'articleImages/',
 	filename: function(req, file, callback){
@@ -57,7 +56,7 @@ router.get('/articles',  function(req, res, next){
 router.get('/articles/:articleTitle', articleApproved, function(req, res, next){
 	var slug = req.params.articleTitle;
 
-	Articles.find({slug:slug}) 
+	Articles.find({_id:slug}) 
 	.exec(function(err, article){
 		if(err){throw err}
 		res.render('oneArticle',{
@@ -119,31 +118,30 @@ router.get('/article/:user', ensureAuthenticated, function(req, res, next){
 	});
 });
 
-router.get('/editArticle/:article/:user', ensureAuthenticated, function(req, res, next){
-	var slug = req.params.article;
-	var user = req.params.user;
-	if(!user == req.user){
-		res.redirect('/articles')
-	}
-	Articles.findOne({slug:slug, author:user}, function(err, article){
+router.get('/editArticle/:article', ensureAuthenticated, function(req, res, next){
+	var id = req.params.article
+	Articles.findOne({_id:id}, function(err, article){
 		if(err){throw err}
+	if(article.author == req.user.username){
 		res.render('editArticle', {
 			title:'Edit Article',
 			article:article
-		});
+		});	
+	} else {
+		res.redirect('/articles')
+	}
 	});
 });
 
-router.post('/editArticle/:article/:user', ensureAuthenticated, function(req, res, next){
+router.post('/editArticle/:article', ensureAuthenticated, function(req, res, next){
 	var slug = req.params.article;
-	var user = req.params.user;
 	var title = req.body.title;
 	var articleText = req.body.articleText
-	Articles.update({slug:slug}, {$set:{title:title, articleText:articleText}}, function(err, article){
+	Articles.update({_id:slug}, {$set:{title:title, articleText:articleText}}, function(err, article){
 		if(err){throw err}
 	})
 	req.flash('info','Updated the article');
-	res.redirect('/editArticle/'+ slug +'/'+ user +'')
+	res.redirect("/articles/"+ slug )
 })
 
 
@@ -173,20 +171,14 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 		var newArticle = new Articles({
 			title: title,
 			articleText: text,
-			slug: slug,
 			author: username,
 			createdAt: Date.now(),
 			status: "for_Review",
 			headerImg: headerImage
 		});
 
-	Searches.articleBySlug(slug, function(err, article){
+	Searches.articleBySlug(newArticle.slug, function(err, article){
 		if(err){throw err}
-			if(article){
-				while(article.slug == newArticle.slug){
-					newArticle.slug = slug + Math.floor(Math.random() * 9);
-				}
-			}
 		if(req.user.level == "approved"){
 			newArticle.status = "Posted"
 		}

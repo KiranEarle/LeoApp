@@ -10,7 +10,7 @@ function articles(callback){
 }
 
 function articleBySlug(slug, callback){
-	Articles.findOne({slug:slug}, callback)
+	Articles.findOne({_id:slug}, callback)
 }
 
 function users(callback){
@@ -18,6 +18,8 @@ function users(callback){
 	.sort({createdAt: 'descending'})
 	.exec(callback);
 }
+
+
 
 module.exports.users = users;
 module.exports.articleBySlug = articleBySlug;

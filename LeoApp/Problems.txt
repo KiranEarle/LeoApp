@@ -1,4 +1,3 @@
-1. Need to fixed the slug generator on article creation
 
 2. Need to fix the file extention validator when a user uploads an image.
 

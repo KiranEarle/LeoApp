@@ -1,5 +1,5 @@
 <% include templates\_header.ejs %>
-<form action="/editArticle/<%= article.slug %>/<%= article.author %>" method="POST">
+<form action="/editArticle/<%= article.id %>" method="POST">
 	<input type="text" name="title" value="<%= article.title %>" autofocus><br>
 	<textarea class="article-text-area" type="text" name="articleText"><%= article.articleText %></textarea><br>
 	<input type="submit" value="update">
