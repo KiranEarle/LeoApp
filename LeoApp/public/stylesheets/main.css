@@ -63,10 +63,12 @@ form textarea{
  	background-color: rgba(0,0,0,0.5) ;
  	border-top-left-radius: 25px;
 	border-top-right-radius: 25px;
-}
-.articleWidgetHeader h2 a{
- 	text-decoration: none;
+	text-decoration: none;
  	color: white;
+}
+.articleWidgetHeader h2:hover{
+ 	background-color: rgba(0,0,0,0.0);	
+	text-decoration: none;
  }
 .title-image-article{
 	height: 50px;

@@ -9,7 +9,8 @@ var flash = require("connect-flash");
 var expressValidator = require("express-validator");
 var nodemailer = require('nodemailer')
 var multer = require('multer');
-var crypto = require('crypto'); 
+var crypto = require('crypto');
+var async = require('async') 
 
 var routes = require("./routes/index");
 var users = require("./routes/users");
