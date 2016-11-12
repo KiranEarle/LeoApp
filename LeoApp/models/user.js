@@ -10,7 +10,9 @@ var userSchema = mongoose.Schema({
 	createAt: {type:Date, default:Date.now},
 	isAdmin: {type:Boolean},
 	status: {type:String},
-	level: {type:String}
+	level: {type:String},
+	resetPasswordToken: {type: String},
+	resetPasswordExpires: {type:Date}
 });
 
 

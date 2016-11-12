@@ -200,6 +200,7 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 			if(err){
 				throw err;
 				console.log(err)
+				res.redirect('/forgotPassword');
 			}
 			
 		})

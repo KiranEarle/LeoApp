@@ -10,12 +10,13 @@ var expressValidator = require("express-validator");
 var nodemailer = require('nodemailer')
 var multer = require('multer');
 var crypto = require('crypto');
-var async = require('async') 
+var async = require('async'); 
 
 var routes = require("./routes/index");
 var users = require("./routes/users");
 var articles = require("./routes/articles");
 var admin = require("./routes/admin");
+var passwordReset = require("./routes/passwordReset");
 
 var setUpPassport = require("./setuppassport");
 
@@ -51,6 +52,7 @@ app.use(function(req, res, next){
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
+app.use(passwordReset);
 app.use(articles);
 app.use(admin);
 app.use(users, function(req, res, next){
