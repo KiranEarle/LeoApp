@@ -156,7 +156,6 @@ router.post('/newArticle', ensureAuthenticated, upload.single('articleHeader'), 
 	var text = req.body.text;
 	var username = req.user.username;
 	var headerImage = req.file.filename;
-	var slug = req.user.username +'_'+ req.body.title.replace(/\s/g,'')
 	req.checkBody('title','Please enter a title').notEmpty();
 	req.checkBody('text','Please enter some text').notEmpty();
 	var errors = req.validationErrors();
