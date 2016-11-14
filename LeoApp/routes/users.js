@@ -53,12 +53,13 @@ router.post('/signup', function(req, res, next){
 				if(user){
 					req.flash('info','Either your username or email already exist, please use a different one');
 					return res.redirect("/signup");
-				}
-			newUser.save(next);
+				} else {
+					newUser.save(next);
+					req.flash('info', 'You have signed up successfully');
+					return res.redirect('/login');
+			}
 		});
-					
-	req.flash('info', 'You have signed up successfully');
-	return res.redirect('/login');
+				
 				
 	};
 });

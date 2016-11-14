@@ -22,8 +22,9 @@ var setUpPassport = require("./setuppassport");
 
 var app = express();
 
-mongoose.connect("mongodb://Kiran:Myleskusume@ds019471.mlab.com:19471/lion", function(){
-	//mongodb://localhost:27017/Lion
+mongoose.connect("mongodb://localhost:27017/Lion", function(){
+	//mongodb://Kiran:<dbpassword>@ds019471.mlab.com:19471/lion
+	//
 	console.log('Connected to Mongo server')
 });
 setUpPassport();
