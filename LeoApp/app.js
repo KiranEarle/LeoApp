@@ -17,13 +17,14 @@ var users = require("./routes/users");
 var articles = require("./routes/articles");
 var admin = require("./routes/admin");
 var passwordReset = require("./routes/passwordReset");
+var image = require("./routes/testImageUpload");
 
 var setUpPassport = require("./setuppassport");
 
 var app = express();
 
-mongoose.connect("mongodb://Kiran:Myleskusume1@ds019471.mlab.com:19471/lion", function(){
-	//mongodb://localhost:27017/Lion
+mongoose.connect("mongodb://localhost:27017/Lion", function(){
+	//mongodb://Kiran:Myleskusume1@ds019471.mlab.com:19471/lion
 	console.log('Connected to Mongo server')
 });
 setUpPassport();
@@ -54,6 +55,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(routes);
 app.use(passwordReset);
+app.use(image);
 app.use(articles);
 app.use(admin);
 app.use(users, function(req, res, next){

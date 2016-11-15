@@ -1,0 +1,11 @@
+<% include templates/_header.ejs %>
+<%if (currentUser){%>
+	<a href="/article/<%= currentUser.username %>">My Articles</a>
+
+<form  id="imageUploader" action="/imageUploader" method="POST" enctype="multipart/form-data">
+	<label for="field">Required, only .png, .jpg and .gif files allowed: </label><br>
+	<input type="file" id="field" name="image" required="Please add a header image to post article"><br>
+	<input type="submit" value="Post">
+</form>
+<% } %>
+<% include templates/_footer.ejs %>
