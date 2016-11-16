@@ -27,7 +27,8 @@ $( "#headerUpload" ).validate({
 $("#signup").validate({
   rules:{
     password:{
-      minLength: 7
+      required: true,
+      minlength: 7
     }
   }
 });

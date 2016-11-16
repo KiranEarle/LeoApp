@@ -1,5 +1,0 @@
-
-2. Need to fix the file extention validator when a user uploads an image.
-
-3. Need to create the password reset
-
