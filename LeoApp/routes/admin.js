@@ -194,6 +194,24 @@ router.get('/adminSearchArticle',ensureAuthenticated, adminValidator, function(r
 	});
 });
 
+router.post('/adminSearchArticle', ensureAuthenticated, adminValidator, function(req, res, next){
+
+	var title = req.body.articleSearch
+
+	Articles.find({title:title})
+	.sort('descending')
+	.exec(function(err, articles){
+		if(err){throw err}
+
+		res.render('adminSearchArticles', {
+			title: 'Article Search',
+			articles:articles
+
+		});
+	});
+
+});
+
 router.get('/adminSearchArticle/:article',ensureAuthenticated, adminValidator, function(req, res, next){
 	var slug = req.params.article;
 	Searches.articleBySlug(slug, function(err, article){
