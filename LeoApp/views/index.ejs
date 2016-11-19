@@ -1,11 +1,21 @@
 <% include templates/_header.ejs %>
-<div class="container">
-  <div class="jumbotron">
-  	<% if (currentUser) {%>
-  	<h2>Hi <%= currentUser.displayName()%></h2>
 
-   		<span>Most recent articles:</span><br><br>
-   <% articles.forEach(function(article){ %>
+
+    <% if(currentUser) { %>
+  	<h2>Hi <%= currentUser.displayName()%></h2>
+    <% } %>
+    <% homeArticles.forEach(function(article){%>
+    <div class="row">   	
+    <div class="col-lg-5">
+    <h2><%= article.title %></h2><br>
+    <article><%= article.text %></article>
+    </div><br><br>
+    <div class="col-lg-7">
+      <img style="height:375px" src="/<%= article.img %>"/>
+    </div>
+    </div>
+    <%})%>
+<!--    <% articles.forEach(function(article){ %>
    <% if(article.status == "Posted") {%>
    	<h4><a href="/articles/<%= article.id %>"><%= article.title %></a></h4>
    	<span class="haze">Created on: <%= article.createdAt %></span><br>
@@ -16,13 +26,9 @@
     <% } %>
 		<a href="/articles/<%= article.id %>">Click here from more</a>
     <% } %>
-   	<% }) %>
-   <% } else { %>
+   	<% }) %> -->
+ 
 
-<h2>Welcome</h2>
 
-   <% } %>
-  </div>
-</div>
 
 <% include templates/_footer.ejs %>

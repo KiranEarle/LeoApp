@@ -35,7 +35,7 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/articleImages'));
-
+app.use(express.static(__dirname + '/adminImages'));
 
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({extended: false}));

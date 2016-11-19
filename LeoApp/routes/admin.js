@@ -3,8 +3,22 @@ var router = express.Router();
 var User = require('../models/user.js');
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
-var Searches = require('../libraries/searches.js')
+var Searches = require('../libraries/searches.js');
+var Home = require('../models/home.js');
 var fs = require('fs');
+var multer = require('multer');
+var crypto = require('crypto');
+var path = require('path');
+var storage = multer.diskStorage({
+	destination: 'adminImages/',
+	filename: function(req, file, callback){
+		crypto.pseudoRandomBytes(16, function(err, raw){
+			callback(null, raw.toString('hex') + path.extname(file.originalname));
+		});
+	}
+
+});
+var upload = multer({storage: storage});
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -286,6 +300,33 @@ router.post('/unapproveArticle/:article', function(req, res, next){
 
 	req.flash("info", "Article has been set to review and has not been posted");
 	res.redirect("/adminSearchArticle/"+ slug +"");
+});
+
+//Admin Articles
+
+router.get('/AdminArticles', ensureAuthenticated, adminValidator, function(req, res, next){
+	res.render('adminArticlePosts', {
+		title:'Admin Posts'
+	});
+});
+
+router.post('/AdminArticles', upload.single('adminArticle'), function(req, res, next){
+	var title = req.body.title;
+	var text = req.body.text;
+	var image = req.file.filename;
+	
+	var newArticle = new Home({
+		title:title,
+		text:text,
+		img:image,
+		dateCreated: Date.now()
+	});
+
+	newArticle.save(function(err, article){
+		if(err){throw err}
+	});
+	req.flash('info','Posted new article');
+	res.redirect('/AdminArticles');
 });
 
 module.exports = router;

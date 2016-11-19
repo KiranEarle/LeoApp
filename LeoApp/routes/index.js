@@ -3,6 +3,9 @@ var	router = express.Router();
 var	passport = require('passport');
 var User = require("../models/user.js");
 var Articles = require('../models/articles.js');
+var async = require('async');
+var homePage = require('../models/home.js');
+var Searches = require('../libraries/searches.js');
 
 router.use(function(req, res, next){
 	res.locals.currentUser = req.user;
@@ -10,13 +13,39 @@ router.use(function(req, res, next){
 });
 
 router.get('/', function(req, res, next){
+	var articles;
+	var homeArticles;
 	if(!req.user){
-		res.render('index', {
-			title:'Dashboard'
-		});
-	}
+		async.parallel([
+			function(done){
+				Searches.articles(function(err, foundArticles){
+					if(err){throw err}
+					articles = foundArticles;
+					done();
+				});
+			}, 
+			function(done){
+				homePage.find()
+				.exec(function(err, article){
+					if(err){throw err}
+						homeArticles = article;
+					done();
+				});
+
+			}],
+			function(err){
+				console.log(articles);
+				console.log(homeArticles);
+				res.render('index', {
+					title:'LionBrandTV',
+					articles:articles,
+					homeArticles:homeArticles
+				});
+			});
+	} else {
 	res.redirect('/home')
-})
+}
+});
 
 router.get('/home', ensureAuthenticated, function(req, res, next){
 

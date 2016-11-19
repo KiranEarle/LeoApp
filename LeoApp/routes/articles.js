@@ -2,6 +2,7 @@ var express = require('express');
 var	router = express.Router();
 var	passport = require('passport');
 var Articles = require('../models/articles.js');
+var User = require("../models/user.js");
 var hbs = require('nodemailer-express-handlebars')
 var nodemailer = require('nodemailer');
 var mailer = nodemailer.createTransport('smtps://lionbrandtv%40gmail.com:Myleskusume1@smtp.gmail.com')
@@ -9,6 +10,7 @@ var Searches = require('../libraries/searches.js')
 var multer = require('multer');
 var crypto = require('crypto');
 var path = require('path');
+var async = require('async');
 var storage = multer.diskStorage({
 	destination: 'articleImages/',
 	filename: function(req, file, callback){
@@ -51,7 +53,6 @@ router.get('/articles',  function(req, res, next){
 		});
 	});
 });
-
 
 router.get('/articles/:articleTitle', articleApproved, function(req, res, next){
 	var slug = req.params.articleTitle;
