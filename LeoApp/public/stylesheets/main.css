@@ -44,8 +44,8 @@ form textarea{
 }
 .header-title{
 	text-align: center;
-	padding-top: 100px;
 	font-size: 150px;
+	font-weight: 900;
 }
 .articleWidget{
 	height: 550px;

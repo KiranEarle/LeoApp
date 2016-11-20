@@ -18,7 +18,10 @@ router.get('/', function(req, res, next){
 	if(!req.user){
 		async.parallel([
 			function(done){
-				Searches.articles(function(err, foundArticles){
+				Articles.find()
+				.sort({createdAt:"descending"})
+				.limit(3)
+				.exec(function(err, foundArticles){
 					if(err){throw err}
 					articles = foundArticles;
 					done();
@@ -34,8 +37,6 @@ router.get('/', function(req, res, next){
 
 			}],
 			function(err){
-				console.log(articles);
-				console.log(homeArticles);
 				res.render('index', {
 					title:'LionBrandTV',
 					articles:articles,
@@ -48,17 +49,35 @@ router.get('/', function(req, res, next){
 });
 
 router.get('/home', ensureAuthenticated, function(req, res, next){
+	var articles;
+	var homeArticles;
+	async.parallel([
+			function(done){
+				Articles.find()
+				.sort({createdAt:"descending"})
+				.limit(3)
+				.exec(function(err, foundArticles){
+					if(err){throw err}
+					articles = foundArticles;
+					done();
+				});
+			}, 
+			function(done){
+				homePage.find()
+				.exec(function(err, article){
+					if(err){throw err}
+						homeArticles = article;
+					done();
+				});
 
-	Articles.find()
-	.sort({createdAt:"descending"})
-	.limit(3)
-	.exec(function(err, articles){
-		if(err){throw err}
-		res.render('index', {
-			title:'Dashboard',
-			articles: articles
-		});
-	});
+			}],
+			function(err){
+				res.render('index', {
+					title:'LionBrandTV',
+					articles:articles,
+					homeArticles:homeArticles
+				});
+			});
 
 
 });

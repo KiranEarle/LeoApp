@@ -13,22 +13,34 @@
     <div class="col-lg-7">
       <img style="height:375px" src="/<%= article.img %>"/>
     </div>
-    </div>
+    </div><br>
     <%})%>
-<!--    <% articles.forEach(function(article){ %>
+
+   <% articles.forEach(function(article){ %>
    <% if(article.status == "Posted") {%>
-   	<h4><a href="/articles/<%= article.id %>"><%= article.title %></a></h4>
-   	<span class="haze">Created on: <%= article.createdAt %></span><br>
+<div class="post col-md-4 offset-md-4 articleWidget">
+  <div class="articleWidgetHeader" style="background-image:url(/<%= article.headerImg %>);">
+  <a href="/articles/<%= article.id %>"><h2><%= article.title %></h2></a>
+  </div>
+  <p>
+    <span class="haze">Created on: <%= article.createdAt %></span><br>
     <span class="haze">Author: <%= article.author %></span><br>
-		<span><%= article.articleText.substring(0, 100)%>...</span><br>
-    <% if(!article.comment.length == 0){ %>
+    <span><%= article.articleText.substring(0, 350)%>...</span><br>
+    <a href="/articles/<%= article.id %>">Click here from more</a><br><br>
+    <% if (!article.comment.length == 0) {%>
     <span class="haze">Comments: <%= article.comment.length %></span><br>
     <% } %>
-		<a href="/articles/<%= article.id %>">Click here from more</a>
+    <% if(currentUser){ %>
+      <% if(currentUser.username == article.author){ %>
+        <a href="/editArticle/<%= article.id %>">Edit article</a>
+      <% } %>
     <% } %>
-   	<% }) %> -->
+    <hr>
+  </p>
+</div>
+    <% } %>
+    <% }) %>
  
-
 
 
 <% include templates/_footer.ejs %>
